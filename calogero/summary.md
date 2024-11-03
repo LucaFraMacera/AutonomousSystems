@@ -53,3 +53,49 @@ Reconfiguring autonomous systems is a complicated
 exercise. If the architecture is not adapted, it can trigger massive changes and result in high cost for the project. Therefore, the architecture needs to be designed for reconfiguration, which means that all aspects of the design need to take into account the possibility of reconfiguration. This is what we have done for verification; we have placed compositional verification at the heart of our verification process. Composition helps re-use verification artifacts in connection with new verification artifacts (for the added components) and efficiently put together the verification of the reconfigured system. In so doing we created a scalable verification mechanism which can deal with reconfiguration.
 
 # Article 5: CyberSecurity for Aerospace Autonomous Systems
+An autonomous system can, prospectively, be compromised by attacks against the AI (which seek to control it, overwhelm it or otherwise) as well as attacks against the supporting systems which the AI relies upon.
+
+Cybersecurity is part of a larger area of consideration: system assurance. Assurance can be subdivided into two categories which can be effectively summed up as (1) making sure that required actions happen and (2) preventing prohibited actions from happening.
+
+Required actions that must be assured to happen include supplying power at times to locations required of the requisite level and generating power of the amount required. Communications capabilities must be assured. Onboard computing, which is required for controlling the spacecraft, must also be guaranteed. Finally, the position determination and control system must be assured to work as must the attitude determination and control system.
+
+Prohibited actions that must be prevented begin with the important goal of preventing overheating. The assurance process must also prevent any discharge of transmitted power to unintended targets or at incorrect times. The assurance process must also insure that power transmission does not occur within requisite safety margins. It must also prevent transmission when non-participating craft are in the way, when an attitude or position fix problem exists, or another problem is occurring.
+
+The cybersecurity needs of a system are a subset of the assurance needs of the system. Cybersecurity is primarily concerned with three areas:
+1. onboard software operations
+2. ground station software operations
+3. transmission link security.
+
+In the first two categories, malware or other attack could prospectively cause the system to be activated at incorrect times, either via changing the definition of when appropriate operating times and locations are or be confusing the system in to believing that the time or its position, orientation and other characteristics are different than they are. An exploit in either of these areas could also result in the system being directly commanded into an override mode where assurance mechanisms to prevent against unintended operations are bypassed.
+
+Transmission link security could cause similar issues. It may result in incorrect position, time or orientation knowledge and breaches could provide a vector for attacks against and the exploitation of vulnerabilities in either the ground or onboard software.
+
+Also problematic is the fact that an exploit in any of these areas may place the spacecraft into an inconsistent state where further command is not possible but anyone, or where the owner/operator’s command capabilities are denied, but a third party attacker retains control. This last situation is perhaps the most problematic as it not only loses in the usability of the asset, but may result in some or all of the desired actions not occurring (e.g., supplying power to required locations) as well as any number of the undesired actions (e.g., sending power to an incorrect location) occurring. Finally, the spacecraft may be used to impair the operation of other spacecraft through physical collision, if third-party control is gained.
+
+This system is comprised of multiple parts (in the parlance of space mission design, these parts are referred to as segments, which may be comprised of one or more components).
+1. the ground segments (command/control stations and receiving stations) must be secured against unauthorized physical and electronic access, tampering and the loss of critical security credential information (credential information security may also involve third party credential issuers).
+2. the communications pathways to and from the ground must be secured to prevent denial of service, misuse or the loss of 
+critical information (including security credential information).
+3. third-party systems on which the spacecraft (or ground / communications systems) relies on for information must be secured against providing incorrect information or being impersonated by a malicious party.
+4. the spacecraft itself must be secured against actioning unauthorized commands and providing sensitive data (including security credential data or data that could allow credentials to be determined or reduce the credential impersonation search space) to unauthorized parties.
+
+![security-system-design](include/security-system-design.png)
+
+Standard techniques exist for virtually all of these areas. These include standards for data encryption/decryption, access control and credential management, intrusion detection and such.
+
+While best practices should be utilized for securing all of the foregoing, this is insufficient for this kind of system whose properties include:
+- System operations are mission (possibly human life / safety critical) 
+- System maloperation can possibly cause human injury / death / damage to property 
+- System cannot be directly accessed by human operators (i.e., without relying on cyber component) to correct catastrophic error 
+- System relies on information that may be interpreted different ways in light of other information.
+
+To meet the needs of this type of a system, a more robust security mechanism must be utilized that evaluates system operations holistically and makes both operations-level and systems-level decisions in light of a broader picture view. 
+This is, of course, analogous to how a human would make decisions.
+
+To this end, all critical commands will be subjected to a review by an onboard autonomous system, based on the concepts of expert systems This system will be tasked with evaluating the command, in context, to determine whether it should be actioned, or not. Commands and data that impact critical commands will also be vetted, either by this system or a command/data specific algorithm which will feed trust value information into this system.
+
+It is important to note that, while this system can override virtually any command transmitted to the spacecraft, it cannot initiate key activities on its own. However, it can:
+1. generate requests for information or instructions to human controllers
+2. make decisions about onboard configuration (e.g., engaging the radio outside of believed transmission windows) to attempt to communicate with controllers or respond to urgent onboard problems.
+
+While the second part of the system relates to spacecraft operating and not security software; the first part can be effected through the use of actions within the context of the Blackboard Architecture-based version of the system.
