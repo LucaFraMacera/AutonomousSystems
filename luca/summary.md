@@ -40,7 +40,7 @@ The results of the experiment were that the NMPC is able to manage rapidally cha
 
 Given the results of the various experiments and simulation the NMPC system is capable of managing complex and delicate flying situation. The main topics for future research may be how to increase efficiency and durability to better adapt the UAVs to a real environment contaning more obstacles and harsh conditions.
 
-## A distribuited system of autonomous satellites for space survaillence
+## A distribuited system of autonomous satellites for space surveillance
 
 This system was developed with the goal of advancing the detection of space debrie and space trajectories for other satellites.
 
