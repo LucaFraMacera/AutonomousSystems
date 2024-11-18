@@ -1,21 +1,23 @@
     The parts in bold are not present in the slides
 
-# Slide 1
-**The word aerospace is essentially a combination of two words:** aeronautics **and** spaceflight. **Therefore, aerospace deals with the design, manufacturing, and maintenance of aircrafts or spacecrafts and can be thought of as the science of flight within Earth’s atmosphere as well as outside it.**
+# Slide 2
+**The word aerospace is essentially a combination of two words:** aeronautics **and** spaceflight.
+
+**Therefore, aerospace deals with the design, manufacturing, and maintenance of aircrafts or spacecrafts and can be thought of as the science of flight within Earth's atmosphere as well as outside it.**
 
 Aerospace **can be further divided in:**
-- Aeronautics:  **it is basically all things aeroplane-related within Earth’s atmosphere.**
-- Astronautics: **it is basically all things aeroplane-related outside Earth’s atmosphere.**
+- Aeronautics:  **it is basically all things aeroplane-related within Earth's atmosphere.**
+- Astronautics: **it is basically all things aeroplane-related outside Earth's atmosphere.**
 - Aviation: **the operational aspects of the aircraft**
 
-# Slide 2
+# Slide 3
 **The evolution of the aerospace engineering systems involves upgrades and updates on**
 - Communication, Navigation, and Surveillance (CNS) systems of aircraft
 - Guidance, Navigation, and Control (GNC) systems for air vehicles
 
 **For both, the aeronautical community is looking for more intelligent aerospace systems where autonomy plays a key role to keep air transportation safe and secure.**
 
-# Slide 3
+# Slide 4
 **An example system may follow a three-layered architecture.**
 1. **The top layer, also called the** decision layer, **consists of a domain model and a search engine**.
     - **The domain model lists the** constraints that describe the relationships between elements of the system **(which may include environmental constraints)** and the flight rules that need to be followed during planning.
@@ -27,12 +29,49 @@ Aerospace **can be further divided in:**
 
 **The architecture also needs to support reconfiguration, not only in terms of adding, removing, or changing components in the functional layer, but also in terms of adding planning and execution capabilities.**
 
-# Slide 4
+# Slide 5
 Verification is one of the most challenging issue for IA **no matter the domain unmanned systems are coming from.**
 
 The problem is that a truly intelligent and autonomous system can have too many combinations of different output(s) for the same input(s). This makes very difficult the generation of all the possible combinations for the above inputs and outputs. **Additionally, it can have the different outputs for the same set of inputs which makes IA behavior tough to predict.**
 
 In order to have a robust architecture, every component in the autonomous system built with the architecture must be verified.
 
-From a Verification and validation (V&V) point of view, each element requires different techniques, even though some basic techniques (such as code analysis) can be applied across the board
-- The functional layer, containing the control software, is the closest to traditional embedded software systems. It mostly consists of control device drivers for actuators or sensors as well as mathematical and algorithmic libraries. For these elements, we are mostly concerned with certifying that they cannot crash (regardless of their inputs) and assessing their performance in terms of execution time and memory management. This suggests that a V&V approach based on embedded system verification can be applied in a straightforward manner.
+**From a Verification and validation (V&V) point of view, each element requires different techniques, even though some basic techniques (such as code analysis) can be applied across the board**
+- The functional layer, **containing the control software, is the closest to traditional embedded software systems. It mostly consists of control device drivers for actuators or sensors as well as mathematical and algorithmic libraries. For these elements, we are mostly concerned with certifying that they cannot crash (regardless of their inputs) and assessing their performance in terms of execution time and memory management. This suggests that a** V&V approach based on embedded system verification can be applied in a straightforward manner.
+- **In some high-level view**, the executive and the planner **are quite similar. Using a formal model (the domain model for the planner and a plan for the executive), a reasoning engine computes an output (a plan for the planner and low-level commands for the executive). The reasoning engine is usually fairly mechanical (mostly performing searches) and rarely changed (in theory, only the domain model changes for a new application). Therefore, we can afford to bring to bear some** “heavy” V&V techniques **(e.g., precise static analysis, theorem proving)** to verify that the mechanical operation of the reasoning engine **(e.g., graph expansion, constraint propagations, and rollbacks)** are properly performed.
+- **For the** domain model, the concern is well-formedness **(are constraints legal?)**, consistency **(can constraints lead to inconsistent solutions or a deadlock?)**, and completeness **(have we specified all necessary constraints?)**.
+
+# Slide 6
+**As mentioned above, the engine requires checking for “mechanical” properties while models require some functional correctness verification. As shown in the picture,** mechanical properties **include programming errors (e.g., null pointer de-references), system-level errors (e.g., deadlocks and data races), and data manipulation errors (e.g., plan manipulation and constraint propagation). These properties** are organized in a hierarchy that reflects the masking power of each fault class. **For example, programming errors might mask synchronization errors, which in turn might mask data manipulation errors.** This imposes a natural progression in the verification process: **first, eliminate programming errors, then system-level errors, and finally, data manipulation errors.**
+
+**Note that mechanical properties are checked only when the engine changes while functional properties are checked for each application (i.e., each new model).**
+
+# Slide 7
+**An autonomous system can, prospectively, be compromised by attacks against the AI (which seek to control it, overwhelm it or otherwise) as well as attacks against the supporting systems which the AI relies upon.**
+
+**Cybersecurity is part of a larger area of consideration:** system assurance. **Assurance can be subdivided into two categories which can be effectively summed up as** (1) making sure that required actions happen and (2) preventing prohibited actions from happening.
+
+**Required actions that must be assured to happen include supplying power at times to locations required of the requisite level and generating power of the amount required. Communications capabilities must be assured. Onboard computing, which is required for controlling the spacecraft, must also be guaranteed. Finally, the position determination and control system must be assured to work as must the attitude determination and control system.**
+
+**Prohibited actions that must be prevented begin with the important goal of preventing overheating. The assurance process must also prevent any discharge of transmitted power to unintended targets or at incorrect times. The assurance process must also insure that power transmission does not occur within requisite safety margins. It must also prevent transmission when non-participating craft are in the way, when an attitude or position fix problem exists, or another problem is occurring.**
+
+# Slide 8
+The cybersecurity needs of a system are a subset of the assurance needs of the system. Cybersecurity is primarily concerned with three areas:
+1. onboard software operations
+2. ground station software operations
+3. transmission link security.
+
+**In the first two categories, malware or other attack could prospectively cause the system to be activated at incorrect times, either via changing the definition of when appropriate operating times and locations are or be confusing the system in to believing that the time or its position, orientation and other characteristics are different than they are. An exploit in either of these areas could also result in the system being directly commanded into an override mode where assurance mechanisms to prevent against unintended operations are bypassed.**
+
+**Transmission link security could cause similar issues. It may result in incorrect position, time or orientation knowledge and breaches could provide a vector for attacks against and the exploitation of vulnerabilities in either the ground or onboard software.**
+
+**Also problematic is the fact that an exploit in any of these areas may place the spacecraft into an inconsistent state where further command is not possible but anyone, or where the owner/operator's command capabilities are denied, but a third party attacker retains control. This last situation is perhaps the most problematic as it not only loses in the usability of the asset, but may result in some or all of the desired actions not occurring (e.g., supplying power to required locations) as well as any number of the undesired actions (e.g., sending power to an incorrect location) occurring. Finally, the spacecraft may be used to impair the operation of other spacecraft through physical collision, if third-party control is gained.**
+
+# Slide 9
+This system is comprised of multiple parts (in the parlance of space mission design, these parts are referred to as segments, **which may be comprised of one or more components)**.
+1. the ground segments **(command/control stations and receiving stations)** must be secured against unauthorized physical and electronic access, tampering and the loss of critical security credential information **(credential information security may also involve third party credential issuers)**.
+2. the communications pathways to and from the ground must be secured to prevent denial of service, misuse or the loss of critical information **(including security credential information)**.
+3. third-party systems on which the spacecraft **(or ground / communications systems)** relies on for information must be secured against providing incorrect information or being impersonated by a malicious party.
+4. the spacecraft itself must be secured against actioning unauthorized commands and providing sensitive data **(including security credential data or data that could allow credentials to be determined or reduce the credential impersonation search space)** to unauthorized parties.
+
+**Standard techniques exist for virtually all of these areas. These include standards for data encryption/decryption, access control and credential management, intrusion detection and such.**

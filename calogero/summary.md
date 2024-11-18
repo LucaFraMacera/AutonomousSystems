@@ -74,8 +74,7 @@ Also problematic is the fact that an exploit in any of these areas may place the
 
 This system is comprised of multiple parts (in the parlance of space mission design, these parts are referred to as segments, which may be comprised of one or more components).
 1. the ground segments (command/control stations and receiving stations) must be secured against unauthorized physical and electronic access, tampering and the loss of critical security credential information (credential information security may also involve third party credential issuers).
-2. the communications pathways to and from the ground must be secured to prevent denial of service, misuse or the loss of 
-critical information (including security credential information).
+2. the communications pathways to and from the ground must be secured to prevent denial of service, misuse or the loss of critical information (including security credential information).
 3. third-party systems on which the spacecraft (or ground / communications systems) relies on for information must be secured against providing incorrect information or being impersonated by a malicious party.
 4. the spacecraft itself must be secured against actioning unauthorized commands and providing sensitive data (including security credential data or data that could allow credentials to be determined or reduce the credential impersonation search space) to unauthorized parties.
 
