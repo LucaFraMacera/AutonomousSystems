@@ -1,5 +1,39 @@
 services:
 
+  greenhouse_analyzer:
+    container_name: greenhouse_analyzer
+    build:
+      context: analyzer/greenhouse_analyzer/
+      dockerfile: Dockerfile
+    environment:
+      - MQTT_SERVICE_NAME=mqtt_broker
+      - MQTT_BROKER_PORT=1883
+    volumes:
+      - ./analyzer/start.sh:/start.sh
+      - ./analyzer/analyzer.py:/analyzer.py
+      - ./analyzer/requirements.txt:/requirements.txt
+      - ./sensors-config:/sensors-config
+    command: ["bash", "start.sh"]
+    networks:
+      - aflora_network
+
+  plant_analyzer:
+    container_name: plant_analyzer
+    build:
+      context: analyzer/plant_analyzer/
+      dockerfile: Dockerfile
+    environment:
+      - MQTT_SERVICE_NAME=mqtt_broker
+      - MQTT_BROKER_PORT=1883
+    volumes:
+      - ./analyzer/start.sh:/start.sh
+      - ./analyzer/analyzer.py:/analyzer.py
+      - ./analyzer/requirements.txt:/requirements.txt
+      - ./sensors-config:/sensors-config
+    command: ["bash", "start.sh"]
+    networks:
+      - aflora_network
+
   node_red:
     container_name: node_red
     build:
