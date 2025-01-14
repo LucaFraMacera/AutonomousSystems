@@ -27,11 +27,9 @@ services:
       - MQTT_SERVICE_NAME=mqtt_broker
       - MQTT_BROKER_PORT=1883
     volumes:
-      - ./analyzer/start.sh:/start.sh
       - ./analyzer/analyzer.py:/analyzer.py
       - ./analyzer/requirements.txt:/requirements.txt
       - ./sensors-config:/sensors-config
-    command: ["bash", "start.sh"]
     networks:
       - aflora_network
 
@@ -44,11 +42,9 @@ services:
       - MQTT_SERVICE_NAME=mqtt_broker
       - MQTT_BROKER_PORT=1883
     volumes:
-      - ./analyzer/start.sh:/start.sh
       - ./analyzer/analyzer.py:/analyzer.py
       - ./analyzer/requirements.txt:/requirements.txt
       - ./sensors-config:/sensors-config
-    command: ["bash", "start.sh"]
     networks:
       - aflora_network
 
