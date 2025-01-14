@@ -1,0 +1,102 @@
+services:
+
+  node_red:
+    container_name: node_red
+    build:
+      context: ./nodered/
+      dockerfile: Dockerfile
+    environment:
+      - BOT_TOKEN=7624803090:AAFl-2ZR2vFxRO37Z9KyyGIROTHloFWkPyM
+      - CHAT_ID=-4723398728
+      - TZ=TZ=Europe/Amsterdam
+      - INFLUXDB_TOKEN=se4iot_token
+    ports:
+      - "1880:1880"
+    networks:
+      - aflora_network
+    volumes:
+      - ./nodered/data:/data
+      - ./sensors-config/sensors-config.json:/config/sensors-config.json:ro
+  
+  
+  mqtt_broker:
+    image: eclipse-mosquitto:2.0.20-openssl
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883" 
+      - "9001:9001" 
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - aflora_network
+
+  influxdb:
+    image: influxdb:2.7.10
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin123
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=se4iot_token
+      - DOCKER_INFLUXDB_INIT_ORG=FLORA
+      - DOCKER_INFLUXDB_INIT_BUCKET=FLORA
+    volumes:
+      - influxdb2:/var/lib/influxdb2
+    networks:
+      - aflora_network
+
+  telegraf:
+    image: telegraf:1.32.3
+    container_name: telegraf
+    depends_on:
+      - mqtt_broker
+      - influxdb
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - aflora_network
+
+  publisher:
+    build:
+      context: ./publisher
+    container_name: publisher
+    depends_on:
+      - mqtt_broker
+    networks:
+      - aflora_network
+    volumes:
+      - ./sensors-config:/app/sensors-config
+  
+  grafana:
+    build:
+      context: ./grafana
+      dockerfile: Dockerfile
+    container_name: grafana
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - INFLUXDB_BUCKET=FLORA
+      - GRAFANA_API_KEY=glsa_m12wWLbW7AmJiZ8YKdWLbNLEcu0yarlk_9362f0ff  # API Key in Grafana
+      - GRAFANA_URL=http://localhost:3000  # Grafana URL
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./grafana:/var/lib/grafana
+      - ./sensors-config:/app/sensors-config
+    networks:
+      - aflora_network
+
+
+volumes:
+  influxdb2: 
+    name: influxdb2
+
+networks:
+  aflora_network:
+    
