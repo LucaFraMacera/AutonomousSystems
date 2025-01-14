@@ -1,0 +1,15 @@
+# Usa un'immagine base con Python
+FROM python:3.10-slim
+
+# Imposta la working directory all'interno del container
+WORKDIR /app
+
+# Copia i file del progetto nella working directory
+COPY app/ /app/
+COPY requirements.txt /app/
+
+# Installa le dipendenze
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Esegui il programma quando il container parte
+CMD ["python", "publisher.py"]
