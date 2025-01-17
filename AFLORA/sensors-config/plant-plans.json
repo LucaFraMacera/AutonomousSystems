@@ -1,0 +1,5 @@
+{
+    "NORMAL":"NO_ACTION",
+    "THIRSTY":"POUR_WATER",
+    "DEHYDRATED":"MAKE_IT_RAIN"
+}

@@ -1,3 +1,32 @@
+x-planner-service: &planner-service
+  environment:
+    - MQTT_SERVICE_NAME=mqtt_broker
+    - MQTT_BROKER_PORT=1883
+  volumes:
+    - ./planner/planner.py:/planner.py
+    - ./planner/requirements.txt:/requirements.txt
+    - ./sensors-config:/sensors-config
+  networks:
+    - aflora_network
+  depends_on:
+    - mqtt_broker
+
+x-analyzer-service: &analyzer-service
+  environment:
+      - MQTT_SERVICE_NAME=mqtt_broker
+      - MQTT_BROKER_PORT=1883
+      - INFLUX_TOKEN=se4iot_token
+      - INFLUX_BUCKET=AFLORA
+      - INFLUX_LINK=http://influxdb:8086
+      - INFLUX_ORG=AFLORA
+  volumes:
+    - ./analyzer/analyzer.py:/analyzer.py
+    - ./analyzer/requirements.txt:/requirements.txt
+    - ./sensors-config:/sensors-config
+    - ./knowledge:/knowledge
+  networks:
+    - aflora_network
+
 services:
 
   monitor:
@@ -7,9 +36,9 @@ services:
       dockerfile: Dockerfile
     environment: 
       - INFLUX_TOKEN=se4iot_token
-      - INFLUX_BUCKET=FLORA
+      - INFLUX_BUCKET=AFLORA
       - INFLUX_LINK=http://influxdb:8086
-      - INFLUX_ORG=FLORA
+      - INFLUX_ORG=AFLORA
     networks:
       - aflora_network
     depends_on:
@@ -19,44 +48,34 @@ services:
       - ./knowledge:/app/knowledge
 
   greenhouse_analyzer:
+    <<: *analyzer-service
     container_name: greenhouse_analyzer
     build:
       context: analyzer/greenhouse_analyzer/
       dockerfile: Dockerfile
-    environment:
-      - MQTT_SERVICE_NAME=mqtt_broker
-      - MQTT_BROKER_PORT=1883
-      - INFLUX_TOKEN=se4iot_token
-      - INFLUX_BUCKET=FLORA
-      - INFLUX_LINK=http://influxdb:8086
-      - INFLUX_ORG=FLORA
-    volumes:
-      - ./analyzer/analyzer.py:/analyzer.py
-      - ./analyzer/requirements.txt:/requirements.txt
-      - ./sensors-config:/sensors-config
-      - ./knowledge:/knowledge
-    networks:
-      - aflora_network
 
   plant_analyzer:
+    <<: *analyzer-service
     container_name: plant_analyzer
     build:
       context: analyzer/plant_analyzer/
       dockerfile: Dockerfile
-    environment:
-      - MQTT_SERVICE_NAME=mqtt_broker
-      - MQTT_BROKER_PORT=1883
-      - INFLUX_TOKEN=se4iot_token
-      - INFLUX_BUCKET=FLORA
-      - INFLUX_LINK=http://influxdb:8086
-      - INFLUX_ORG=FLORA
-    volumes:
-      - ./analyzer/analyzer.py:/analyzer.py
-      - ./analyzer/requirements.txt:/requirements.txt
-      - ./sensors-config:/sensors-config
-      - ./knowledge:/knowledge
-    networks:
-      - aflora_network
+    
+
+  greenhouse_planner:
+    <<: *planner-service
+    container_name: greenhouse_planner
+    build:
+      context: planner/greenhouse-planner
+      dockerfile: Dockerfile
+    
+  
+  plant_planner:
+    <<: *planner-service
+    container_name: plant_planner
+    build:
+      context: planner/plant-planner
+      dockerfile: Dockerfile
 
   node_red:
     container_name: node_red
@@ -100,8 +119,8 @@ services:
       - DOCKER_INFLUXDB_INIT_USERNAME=admin
       - DOCKER_INFLUXDB_INIT_PASSWORD=admin123
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=se4iot_token
-      - DOCKER_INFLUXDB_INIT_ORG=FLORA
-      - DOCKER_INFLUXDB_INIT_BUCKET=FLORA
+      - DOCKER_INFLUXDB_INIT_ORG=AFLORA
+      - DOCKER_INFLUXDB_INIT_BUCKET=AFLORA
     volumes:
       - influxdb2:/var/lib/influxdb2
     networks:
@@ -128,7 +147,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      - INFLUXDB_BUCKET=FLORA
+      - INFLUXDB_BUCKET=AFLORA
       - GRAFANA_API_KEY=glsa_m12wWLbW7AmJiZ8YKdWLbNLEcu0yarlk_9362f0ff  # API Key in Grafana
       - GRAFANA_URL=http://localhost:3000  # Grafana URL
     ports:
