@@ -93,7 +93,7 @@ services:
       - aflora_network
     volumes:
       - ./nodered/data:/data
-      - ./sensors-config/sensors-config.json:/config/sensors-config.json:ro
+      - ./sensors-config/:/config/
   
   
   mqtt_broker:

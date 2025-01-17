@@ -10,4 +10,4 @@ RUN apk add --no-cache jq
 USER node-red
 
 # Load environment variable containing sensors configuration
-ENTRYPOINT ["/bin/sh", "-c", "export SENSORS=$(cat /config/sensors-config.json | jq -c .) && exec npm start --cache /data/.npm -- --userDir /data"]
+ENTRYPOINT ["/bin/sh", "-c", "export PLANT_SENSORS=$(cat /config/plant-sensors-config.json | jq -c .)&& export GREENHOUSE_SENSORS=$(cat /config/greenhouse-sensors-config.json | jq -c .) && exec npm start --cache /data/.npm -- --userDir /data"]

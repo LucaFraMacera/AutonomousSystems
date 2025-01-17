@@ -57,7 +57,7 @@
         "bot": "662fd1abba56a419",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 830,
+        "x": 950,
         "y": 160,
         "wires": [
             [
@@ -78,7 +78,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 980,
+        "x": 1100,
         "y": 80,
         "wires": []
     },
@@ -88,17 +88,18 @@
         "z": "356ea6f4c1f619bc",
         "influxdb": "edf1038d908d0e6f",
         "name": "Access InfluxDB",
-        "query": "from(bucket: \"FLORA\")\n|> range(start: -6s)\n|> filter(fn: (r) => r[\"_measurement\"] == \"mqtt_consumer\")",
+        "query": "from(bucket: \"AFLORA\")\n|> range(start: -10s)\n|> filter(fn: (r) => r[\"_measurement\"] == \"sensor-values\")",
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "org": "FLORA",
+        "org": "AFLORA",
         "x": 340,
         "y": 160,
         "wires": [
             [
                 "db556ada97593f4e",
-                "6e89c57ff2394507"
+                "6e89c57ff2394507",
+                "c02720065eda1165"
             ]
         ]
     },
@@ -133,7 +134,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "5",
+        "repeat": "10",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -152,16 +153,36 @@
         "id": "6e89c57ff2394507",
         "type": "function",
         "z": "356ea6f4c1f619bc",
-        "name": "Check Sensor Data",
-        "func": "const THRESHOLDS = JSON.parse(env.get('SENSORS'));\nconst sensorsThresholds = {}\nTHRESHOLDS.sensors.map(sensorConfig =>{\n    sensorsThresholds[sensorConfig.name] = {\n        min:sensorConfig.threshold_min,\n        max:sensorConfig.threshold_max,\n        unit:sensorConfig.unit\n    }\n})\nconst telegramMessage = {\n    payload:{\n        chatId: env.get('CHAT_ID'),\n        type:\"message\",\n        content: ``\n    }\n}\n\nconst sensorAlerts = new Map()\n\n\nmsg.payload.forEach(data => {\n    const value = data._value\n    const topic = data.topic\n    const sensorType = data.sensor_type\n    const threshold_sensor = sensorsThresholds[sensorType];\n    if (value > threshold_sensor.max || value < threshold_sensor.min) {\n        sensorAlerts.set(topic, value);\n    }\n});\nsensorAlerts.forEach((value, key) =>{\n    const splittedTopic = key.split(\"/\")\n    telegramMessage.payload.content += \n        `Alert for ${splittedTopic[2]} in ${splittedTopic[1]}!\n        A value of ${value}${sensorsThresholds[splittedTopic[3]].unit} for ${splittedTopic[3]} was detected!\\n`\n})\nreturn telegramMessage;",
+        "name": "Check Plant Sensor Data",
+        "func": "const PLANTS = JSON.parse(env.get('PLANT_SENSORS'));\n\nconst plantSensorsThresholds = {}\nconst greenhouseSensorsThresholds = {}\n\nPLANTS.map(sensorConfig =>{\n    plantSensorsThresholds[sensorConfig.name] = {\n        min:sensorConfig.threshold_min,\n        max:sensorConfig.threshold_max,\n        unit:sensorConfig.unit\n    }\n})\n\nconst telegramMessage = {\n    payload:{\n        chatId: env.get('CHAT_ID'),\n        type:\"message\",\n        content: ``\n    }\n}\n\nconst sensorAlerts = new Map()\n\n\nmsg.payload.forEach(data => {\n    if(!data['plant_id']){\n        return\n    }\n    const value = data._value\n    const greenhouse = data.greenhouse_id\n    const plant = data.plant_id\n    const sensorType = data.sensor_type\n    const topic = `/greenhouse_${greenhouse}/plant_${plant}/${sensorType}`\n    const threshold_sensor = plantSensorsThresholds[sensorType];\n    if (value > threshold_sensor.max || value < threshold_sensor.min) {\n        sensorAlerts.set(topic, value);\n    }\n});\n\nconsole.log(`Plant Alerts :`, sensorAlerts)\n\nsensorAlerts.forEach((value, key) =>{\n    const splittedTopic = key.split(\"/\").filter(v => v.length > 0)\n    telegramMessage.payload.content += \n        `Alert for ${splittedTopic[1]} in ${splittedTopic[0]}!\n        A value of ${value}${plantSensorsThresholds[splittedTopic[2]].unit} for ${splittedTopic[2]} was detected!\\n`\n})\nreturn telegramMessage;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
+        "x": 610,
         "y": 160,
+        "wires": [
+            [
+                "2741cadd25e52534"
+            ]
+        ]
+    },
+    {
+        "id": "c02720065eda1165",
+        "type": "function",
+        "z": "356ea6f4c1f619bc",
+        "name": "Check Greenhouse Sensor Data",
+        "func": "const GREENHOUSES = JSON.parse(env.get('GREENHOUSE_SENSORS'))\n\nconst greenhouseSensorsThresholds = {}\n\nGREENHOUSES.map(sensorConfig => {\n    greenhouseSensorsThresholds[sensorConfig.name] = {\n        min: sensorConfig.threshold_min,\n        max: sensorConfig.threshold_max,\n        unit: sensorConfig.unit,\n        lethalLimit: sensorConfig['lethal_limit']\n    }\n})\n\nconst telegramMessage = {\n    payload:{\n        chatId: env.get('CHAT_ID'),\n        type:\"message\",\n        content: ``\n    }\n}\n\nconst greehouseSensorAlerts = new Map()\n\n\nmsg.payload.forEach(data => {\n    if(data['plant_id']){\n        return\n    }\n    const value = data._value\n    const greenhouse = data.greenhouse_id\n    const sensorType = data.sensor_type\n    const topic = `/greenhouse_${greenhouse}/${sensorType}`\n    const threshold_sensor = greenhouseSensorsThresholds[sensorType];\n    if (value > threshold_sensor.max || value < threshold_sensor.min) {\n        greehouseSensorAlerts.set(topic, value);\n    }\n});\n\nconsole.log(`Greenhouse Alerts :`, greehouseSensorAlerts)\n\ngreehouseSensorAlerts.forEach((value, key) =>{\n    const splittedTopic = key.split(\"/\").filter(v => v.length > 0)\n    telegramMessage.payload.content += \n        `Alert for ${splittedTopic[0]}!\n        A value of ${value}${greenhouseSensorsThresholds[splittedTopic[1]].unit} for ${splittedTopic[1]} was detected!\\n`\n})\nreturn telegramMessage;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 260,
         "wires": [
             [
                 "2741cadd25e52534"

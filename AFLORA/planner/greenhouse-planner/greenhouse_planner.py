@@ -5,13 +5,13 @@ import json
 class GreenhousePlanner(Planner):
 
     TOPIC = "/{greenhouse}/plan"
-    PLANS_FILE_PATH = "/sensors-config/greenhouses-plans.json"
+    PLANS_FILE_PATH = "/sensors-config/greenhouse-plans.json"
 
     def __init__(self) -> None:
         super().__init__(on_connect=on_connect, on_message=on_message, on_subscribe=on_subscribe)
     
     def get_greenhouses_plans():
-        return Planner.get_plant_plans(GreenhousePlanner.PLANS_FILE_PATH)
+        return Planner.get_plans(GreenhousePlanner.PLANS_FILE_PATH)
     
 
 def on_connect(client, userdata, flags, reason_code, properties):
@@ -34,7 +34,7 @@ def on_message(client, userdata, msg):
     if not result:
         return
     matched_groups = result.groups()
-    plans = GreenhousePlanner.get_plant_plans()
+    plans = GreenhousePlanner.get_greenhouses_plans()
     published_status = json.loads(msg.payload.decode('UTF-8'))["value"].upper()
     if published_status in plans.keys():
         topic = GreenhousePlanner.TOPIC.format(greenhouse=matched_groups[0])
