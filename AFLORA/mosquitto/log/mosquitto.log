@@ -2793,3 +2793,106 @@
 1737151155: Client auto-502B8E89-94A8-B36C-0BE4-25FEB7F26813 closed its connection.
 1737151155: Client auto-193C2A5D-69C0-FC3C-00BF-1839D5861438 closed its connection.
 1737151155: Client auto-E7914F3C-0130-1F89-2BE5-4DF704C92D2E closed its connection.
+1737154754: mosquitto version 2.0.20 starting
+1737154754: Config loaded from /mosquitto/config/mosquitto.conf.
+1737154754: Opening ipv4 listen socket on port 1883.
+1737154754: Opening ipv6 listen socket on port 1883.
+1737154754: mosquitto version 2.0.20 running
+1737154755: New connection from 172.18.0.11:49545 on port 1883.
+1737154755: New client connected from 172.18.0.11:49545 as Publisher (p2, c1, k60).
+1737154756: New connection from 172.18.0.14:56807 on port 1883.
+1737154756: New client connected from 172.18.0.14:56807 as auto-5C1D0C21-F121-8A8E-B6A5-C3D75805AA48 (p2, c1, k60).
+1737154758: New connection from 172.18.0.6:51803 on port 1883.
+1737154758: New client connected from 172.18.0.6:51803 as auto-415B5C9A-4B93-04C0-411A-51F4C86DE317 (p2, c1, k60).
+1737154758: New connection from 172.18.0.4:55891 on port 1883.
+1737154758: New client connected from 172.18.0.4:55891 as auto-DCC10FE9-085F-DDFE-6EC7-1F41FBC0A987 (p2, c1, k60).
+1737154760: New connection from 172.18.0.12:59405 on port 1883.
+1737154760: New client connected from 172.18.0.12:59405 as auto-975FA995-4BA8-ADE1-8F97-C4A012C4C1DC (p2, c1, k60).
+1737154760: New connection from 172.18.0.13:51985 on port 1883.
+1737154760: New client connected from 172.18.0.13:51985 as auto-45FBAF07-45FA-C825-3A5D-EE9FE4BE2951 (p2, c1, k60).
+1737154784: New connection from 172.18.0.8:58983 on port 1883.
+1737154784: New client connected from 172.18.0.8:58983 as auto-AD483AE7-B7F7-0A16-7978-3386B2181592 (p2, c1, k60).
+1737154785: New connection from 172.18.0.2:56935 on port 1883.
+1737154785: New client connected from 172.18.0.2:56935 as auto-15DA931E-F7D1-D32B-BBAC-782F8CE07326 (p2, c1, k60).
+1737154845: Client auto-45FBAF07-45FA-C825-3A5D-EE9FE4BE2951 closed its connection.
+1737154845: Client auto-415B5C9A-4B93-04C0-411A-51F4C86DE317 closed its connection.
+1737154845: Client auto-975FA995-4BA8-ADE1-8F97-C4A012C4C1DC closed its connection.
+1737154849: Client auto-15DA931E-F7D1-D32B-BBAC-782F8CE07326 closed its connection.
+1737154855: Client auto-5C1D0C21-F121-8A8E-B6A5-C3D75805AA48 closed its connection.
+1737154855: Client Publisher closed its connection.
+1737154855: Client auto-DCC10FE9-085F-DDFE-6EC7-1F41FBC0A987 closed its connection.
+1737154855: Client auto-AD483AE7-B7F7-0A16-7978-3386B2181592 closed its connection.
+1737154856: mosquitto version 2.0.20 terminating
+1737154856: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737154897: mosquitto version 2.0.20 starting
+1737154897: Config loaded from /mosquitto/config/mosquitto.conf.
+1737154897: Opening ipv4 listen socket on port 1883.
+1737154897: Opening ipv6 listen socket on port 1883.
+1737154897: mosquitto version 2.0.20 running
+1737154898: New connection from 172.18.0.10:45961 on port 1883.
+1737154898: New client connected from 172.18.0.10:45961 as Publisher (p2, c1, k60).
+1737154899: New connection from 172.18.0.13:57225 on port 1883.
+1737154899: New client connected from 172.18.0.13:57225 as auto-45BB2AAE-5733-AB31-1A8C-37D6594FF0C7 (p2, c1, k60).
+1737154900: New connection from 172.18.0.3:42417 on port 1883.
+1737154900: New client connected from 172.18.0.3:42417 as auto-4365F7CC-E0FA-C372-CF4E-B1E503DFC28B (p2, c1, k60).
+1737154903: New connection from 172.18.0.9:57503 on port 1883.
+1737154903: New client connected from 172.18.0.9:57503 as auto-A4494AE7-BA90-751F-D4EF-B78AB3C8361E (p2, c1, k60).
+1737154903: New connection from 172.18.0.6:45627 on port 1883.
+1737154903: New client connected from 172.18.0.6:45627 as auto-92D0D164-CC4C-010B-FE3C-0E4E6346F499 (p2, c1, k60).
+1737154903: New connection from 172.18.0.12:37395 on port 1883.
+1737154903: New client connected from 172.18.0.12:37395 as auto-B0C4C781-F9CD-633C-1EB7-B4EB938B6646 (p2, c1, k60).
+1737154922: Client Publisher closed its connection.
+1737154922: Client auto-92D0D164-CC4C-010B-FE3C-0E4E6346F499 closed its connection.
+1737154922: Client auto-A4494AE7-BA90-751F-D4EF-B78AB3C8361E closed its connection.
+1737154922: Client auto-45BB2AAE-5733-AB31-1A8C-37D6594FF0C7 closed its connection.
+1737154922: Client auto-4365F7CC-E0FA-C372-CF4E-B1E503DFC28B closed its connection.
+1737154922: Client auto-B0C4C781-F9CD-633C-1EB7-B4EB938B6646 closed its connection.
+1737154966: mosquitto version 2.0.20 starting
+1737154966: Config loaded from /mosquitto/config/mosquitto.conf.
+1737154966: Opening ipv4 listen socket on port 1883.
+1737154966: Opening ipv6 listen socket on port 1883.
+1737154966: mosquitto version 2.0.20 running
+1737154967: New connection from 172.18.0.9:58193 on port 1883.
+1737154967: New client connected from 172.18.0.9:58193 as Publisher (p2, c1, k60).
+1737154968: New connection from 172.18.0.12:56481 on port 1883.
+1737154968: New client connected from 172.18.0.12:56481 as auto-E8BB7471-4A6F-46A2-450E-BEAE28E8860A (p2, c1, k60).
+1737154970: New connection from 172.18.0.4:34847 on port 1883.
+1737154970: New client connected from 172.18.0.4:34847 as auto-E0FFAA99-F08A-1D8B-D84D-34525E682C80 (p2, c1, k60).
+1737154971: New connection from 172.18.0.5:48269 on port 1883.
+1737154971: New client connected from 172.18.0.5:48269 as auto-FF0E6730-24B5-E7A1-1CF1-A6E59326C77F (p2, c1, k60).
+1737154972: New connection from 172.18.0.10:44281 on port 1883.
+1737154972: New client connected from 172.18.0.10:44281 as auto-264885B8-8701-E06C-ECBA-05A1C37896D7 (p2, c1, k60).
+1737154972: New connection from 172.18.0.14:34677 on port 1883.
+1737154972: New client connected from 172.18.0.14:34677 as auto-0CDAD547-921E-DEAD-D3DD-31CBC7D59C17 (p2, c1, k60).
+1737154972: New connection from 172.18.0.11:44473 on port 1883.
+1737154972: New client connected from 172.18.0.11:44473 as auto-72DFA76A-0DF9-C460-28E1-58CC326B4D63 (p2, c1, k60).
+1737154991: New connection from 172.18.0.3:56463 on port 1883.
+1737154991: New client connected from 172.18.0.3:56463 as auto-788784BA-8229-B1B5-66DC-B130D71F1951 (p2, c1, k60).
+1737154997: New connection from 172.18.0.8:60905 on port 1883.
+1737154997: New client connected from 172.18.0.8:60905 as auto-51215051-F7F6-BBA1-A90D-87404DE05862 (p2, c1, k60).
+1737155085: Client auto-FF0E6730-24B5-E7A1-1CF1-A6E59326C77F closed its connection.
+1737155131: mosquitto version 2.0.20 starting
+1737155131: Config loaded from /mosquitto/config/mosquitto.conf.
+1737155131: Opening ipv4 listen socket on port 1883.
+1737155131: Opening ipv6 listen socket on port 1883.
+1737155131: mosquitto version 2.0.20 running
+1737155132: New connection from 172.18.0.12:53669 on port 1883.
+1737155132: New client connected from 172.18.0.12:53669 as Publisher (p2, c1, k60).
+1737155133: New connection from 172.18.0.11:45179 on port 1883.
+1737155133: New client connected from 172.18.0.11:45179 as auto-D7E3806E-9F07-2107-F448-E6A15F3BA7C3 (p2, c1, k60).
+1737155133: New connection from 172.18.0.2:54915 on port 1883.
+1737155133: New client connected from 172.18.0.2:54915 as auto-2C6D48E0-4392-C749-FB89-F9D9C164037F (p2, c1, k60).
+1737155135: New connection from 172.18.0.4:46621 on port 1883.
+1737155135: New client connected from 172.18.0.4:46621 as auto-B199D813-8B5C-5DBD-B36A-92B5D02F6577 (p2, c1, k60).
+1737155136: New connection from 172.18.0.9:54197 on port 1883.
+1737155136: New client connected from 172.18.0.9:54197 as auto-483C9623-7EE0-0397-2910-D834F0BAD936 (p2, c1, k60).
+1737155137: New connection from 172.18.0.13:48573 on port 1883.
+1737155137: New client connected from 172.18.0.13:48573 as auto-DEE9DCE0-21A9-032A-33D2-D14D35D82E18 (p2, c1, k60).
+1737155137: New connection from 172.18.0.14:48361 on port 1883.
+1737155137: New client connected from 172.18.0.14:48361 as auto-B220D472-554F-8038-8BF8-8CDFEA3E6969 (p2, c1, k60).
+1737155155: New connection from 172.18.0.3:49137 on port 1883.
+1737155155: New client connected from 172.18.0.3:49137 as auto-0B60D7F0-EBC5-ECBF-76EE-3BC846E736DB (p2, c1, k60).
+1737155168: New connection from 172.18.0.6:49845 on port 1883.
+1737155168: New client connected from 172.18.0.6:49845 as auto-15D4549E-D9B2-688A-313C-B01415343FF8 (p2, c1, k60).
+1737155201: Client auto-483C9623-7EE0-0397-2910-D834F0BAD936 closed its connection.
+1737155201: Client auto-2C6D48E0-4392-C749-FB89-F9D9C164037F closed its connection.

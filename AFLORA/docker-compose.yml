@@ -106,7 +106,23 @@ services:
     build:
       context: executor/plant-executor/
       dockerfile: Dockerfile
-  
+
+
+  managed_resources:
+    container_name: managed_resources
+    build:
+      context: ./managed-resources
+      dockerfile: Dockerfile
+    environment:
+      - MQTT_SERVICE_NAME=mqtt_broker
+      - MQTT_BROKER_PORT=1883
+    networks:
+      - aflora_network
+    depends_on:
+      - greenhouse_executor
+      - plant_executor
+    volumes:
+      - ./sensors-config:/app/sensors-config
 
   node_red:
     container_name: node_red
