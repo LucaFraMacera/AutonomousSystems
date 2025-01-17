@@ -4,6 +4,8 @@ from sklearn.linear_model import LinearRegression
 from abc import ABC, abstractmethod
 import os
 import json
+from knowledge.database import Database
+from time import sleep
 
 MQTT_SERVICE_NAME = os.environ.get('MQTT_SERVICE_NAME')
 MQTT_BROKER_PORT = int(os.environ.get('MQTT_BROKER_PORT'))
@@ -16,10 +18,19 @@ class Analyzer(ABC):
         # Message Broker connection
         self._client_mqtt = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, reconnect_on_failure=True)
         self._client_mqtt.connect(MQTT_SERVICE_NAME, MQTT_BROKER_PORT)
+        # Database
+        self._database = Database()
 
     @abstractmethod
     def _check_status(self):
         pass
+
+    def start(self):
+        print("Plant Analyzer is starting...", flush=True)
+        while True:
+            self._check_status()
+            print("Sleeping", flush=True)
+            sleep(2)
 
     def _publish_value_on_topic(self, value, topic):
         payload = json.dumps({VALUE_KEY: value})  # Serialize only the JSON value
