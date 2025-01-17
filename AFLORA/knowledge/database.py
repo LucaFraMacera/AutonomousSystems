@@ -4,7 +4,6 @@ import os
 
 
 class Database:
-
     MEASUREMENT = "sensor-values"
 
     def __init__(self):
@@ -27,21 +26,24 @@ class Database:
     def databaseRead(self, tags):
         query_api = self._client.query_api()
         query = f'from(bucket:"{self._bucket}")'
-        start_time = "start:"+(tags["start_time"] if "start_time" in tags.keys() else "-2m")
-        end_time = ', stop:'+tags["end_time"] if "end_time" in tags.keys() else ""
+        start_time = "start:" + (tags["start_time"] if "start_time" in tags.keys() else "-2m")
+        end_time = ', stop:' + tags["end_time"] if "end_time" in tags.keys() else ""
         query += f'|>range({start_time}{end_time})'
         query += f'|>filter(fn:(r)=>r["_measurement"]=="{self.MEASUREMENT}")'
-        for tag,value in tags.items():
-            query += f'|>filter(fn:(r)=>r["{tag}"]=="{value}")'
-        print(query)
+        for tag, value in tags.items():
+            if tag != "start_time" and tag != "end_time":
+                query += f'|>filter(fn:(r)=>r["{tag}"]=="{value}")'
+        print(query, flush=True)
         result = query_api.query(query=query, org=self._org)
         sensorReadings = []
         for table in result:
             for record in table.records:
-                sensorReadings.append({
+                current_sensor_reading = {
                     "greenhouse_id": record["greenhouse_id"],
-                    "plant_id":record["plant_id"],
-                    "sensor_type":record["sensor_type"],
-                    "value":record.get_value()
-                })
+                    "sensor_type": record["sensor_type"],
+                    "value": record.get_value()
+                }
+                if "plant_id" in record.values:
+                    current_sensor_reading["plant_id"] = record["plant_id"]
+                sensorReadings.append(current_sensor_reading)
         return sensorReadings

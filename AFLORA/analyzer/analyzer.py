@@ -16,10 +16,10 @@ class Analyzer(ABC):
         self.__client_mqtt.connect(MQTT_SERVICE_NAME, MQTT_BROKER_PORT)
 
     @abstractmethod
-    def __check_status(self):
+    def _check_status(self):
         pass
 
-    def __predictNextValues(self, values, window_size, num_predictions):
+    def _predictNextValues(self, values, window_size, num_predictions):
         """
         Predicts multiple successive values in the sequence using linear regression with a moving window.
         """
@@ -27,21 +27,31 @@ class Analyzer(ABC):
         # Convert list of values to a NumPy array
         values_array = np.array(values)
 
+        # Ensure there is enough data
+        if len(values_array) <= window_size:
+            print(f"Not enough data to generate windows. Dataset size: {len(values_array)}, window_size: {window_size}")
+            return []
+
         # Prepare the data for linear regression
         X = []
         y = []
 
         # Create the data windows and corresponding targets
-        for i in range(len(values_array) - window_size - num_predictions + 1):
-            X.append(values_array[i:i + window_size])  # Use the values passed as features
-            y.append(values_array[
-                     i + window_size:i + window_size + num_predictions])  # The values are the targets to be predicted
+        for i in range(len(values_array) - window_size):
+            X.append(values_array[i:i + window_size])  # Use the values in the window as features
+            y.append(values_array[i + window_size])  # Predict the next value
 
         X = np.array(X)
         y = np.array(y)
 
-        # Transform X into a two-dimensional array
+        # Debugging: Print shapes and contents of X and y
+        print(f"X shape: {X.shape}, y shape: {y.shape}")
+        print(f"X: {X}")
+        print(f"y: {y}")
+
+        # Ensure X is 2D and y is 1D
         X = X.reshape(-1, window_size)
+        y = y.ravel()
 
         # Create a linear regression model
         model = LinearRegression()
@@ -51,6 +61,15 @@ class Analyzer(ABC):
 
         # Predict the next values in the sequence
         last_window = values_array[-window_size:]  # Take the last elements as a moving window
-        next_values = model.predict(last_window.reshape(1, -1))
+        predictions = []
 
-        return next_values.flatten()
+        for _ in range(num_predictions):
+            # Predict the next value
+            next_value = model.predict(last_window.reshape(1, -1))[0]
+            predictions.append(next_value)
+
+            # Update the window by appending the predicted value and removing the oldest one
+            last_window = np.roll(last_window, -1)  # Shift left
+            last_window[-1] = next_value  # Add the new prediction
+
+        return predictions
