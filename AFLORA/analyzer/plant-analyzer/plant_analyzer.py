@@ -14,11 +14,7 @@ class PlantAnalyzer(Analyzer):
 
     def __init__(self):
         super().__init__()
-        self.__status_thresholds_data = self.__retrieve_status_thresholds_data()
-
-    def __retrieve_status_thresholds_data(self):
-        with open(self.__STATUS_THRESHOLDS_JSON_FILE_PATH, 'r') as file:
-            return json.load(file)
+        self.__status_thresholds_data = self._retrieve_status_thresholds_data(self.__STATUS_THRESHOLDS_JSON_FILE_PATH)
 
     def __check_plant_status(self, soil_moisture_value):
         # NORMAL LEVEL

@@ -1,0 +1,11 @@
+{
+    "NO_ACTION":{
+      "irrigation_system": "OFF"
+    },
+    "POUR_WATER": {
+      "irrigation_system": "ON"
+    },
+    "MAKE_IT_RAIN": {
+      "irrigation_system": "FULL_THROTTLE"
+    }
+}

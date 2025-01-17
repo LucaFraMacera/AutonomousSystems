@@ -1,0 +1,23 @@
+{
+    "NO_ACTION":{
+      "irrigation_system": "OFF",
+      "ventilation_system": "CLOSE_WINDOWS",
+      "dehumidification_system": "OFF"
+    },
+    "OPEN_HALF_OF_THE_WINDOWS": {
+      "ventilation_system": "OPEN_HALF_OF_THE_WINDOWS"
+    },
+    "OPEN_ALL_THE_WINDOWS": {
+      "ventilation_system": "OPEN_ALL_THE_WINDOWS"
+    },
+    "OPEN_SPRINKLERS_AND_OPEN_ALL_WINDOWS": {
+      "irrigation_system": "FULL_THROTTLE",
+      "ventilation_system": "OPEN_ALL_THE_WINDOWS"
+    },
+    "ACTIVATE_DEHUMIDIFICATORS_HALF_POWER": {
+      "dehumidification_system": "ON"
+    },
+    "ACTIVATE_DEHUMIDIFICATORS_FULL_POWER": {
+      "dehumidification_system": "FULL_THROTTLE"
+    }
+}

@@ -28,11 +28,7 @@ class GreenhouseAnalyzer(Analyzer):
 
     def __init__(self):
         super().__init__()
-        self.__status_thresholds_data = self.__retrieve_status_thresholds_data()
-
-    def __retrieve_status_thresholds_data(self):
-        with open(self.__STATUS_THRESHOLDS_JSON_FILE_PATH, 'r') as file:
-            return json.load(file)
+        self.__status_thresholds_data = self._retrieve_status_thresholds_data(self.__STATUS_THRESHOLDS_JSON_FILE_PATH)
 
     def __publish_on_plant_status_topics(self, greenhouse_id, greenhouse_id_status):
         plant_status_topic = self.__GREENHOUSE_STATUS_TOPIC_STRUCTURE.format(greenhouse_ID=greenhouse_id)

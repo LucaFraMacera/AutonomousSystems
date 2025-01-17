@@ -18,12 +18,17 @@ class Analyzer(ABC):
         # Message Broker connection
         self._client_mqtt = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, reconnect_on_failure=True)
         self._client_mqtt.connect(MQTT_SERVICE_NAME, MQTT_BROKER_PORT)
+        # No loop forever here
         # Database
         self._database = Database()
 
     @abstractmethod
     def _check_status(self):
         pass
+
+    def _retrieve_status_thresholds_data(self, path):
+        with open(path, 'r') as file:
+            return json.load(file)
 
     def start(self):
         print("Analyzer is starting...", flush=True)
