@@ -60,6 +60,7 @@ services:
       - mqtt_broker
       - influxdb
     volumes:
+      - ./sensors-config:/app/sensors-config
       - ./knowledge:/app/knowledge
 
   greenhouse_analyzer:

@@ -3,38 +3,57 @@ from knowledge.database import Database
 import json
 import re
 
+MANAGED_RESOURCES_JSON_FILE_PATH = "/app/sensors-config/managed-resources.json"
+
+
+def get_managed_resources_list():
+    with open(MANAGED_RESOURCES_JSON_FILE_PATH, 'r') as file:
+        return json.load(file)
+
+
+MANAGED_RESOURCES_LIST = get_managed_resources_list()
+
+
+def check_if_is_managed_resource_topic(tags):
+    for managed_resource in MANAGED_RESOURCES_LIST:
+        if managed_resource in tags:
+            return True
+    return False
+
+
 def getIdFromTopicTag(tag):
     # Matches only strings in the form of prefix_id
     regex = r"(.+)_([0-9]+$)"
     result = re.match(regex, tag)
-    if(result):
+    if (result):
         parts = result.groups()
         return parts[1]
     return None
+
 
 def parseBrokerMessage(message):
     topic = message.topic
     payload = json.loads(message.payload.decode("utf-8"))
     tags = []
     for value in topic.split("/"):
-        if(len(value) > 0):
+        if (len(value) > 0):
             tags.append(value)
-    if("status" in tags or "plan" in tags):
+    if "status" in tags or "plan" in tags or check_if_is_managed_resource_topic(tags):
         return None
     point = {}
-    if(len(tags) == 3):
-        point["tags"]={
-            "greenhouse_id":getIdFromTopicTag(tags[0]),
-            "plant_id":getIdFromTopicTag(tags[1]),
-            "sensor_type":tags[2]
+    if (len(tags) == 3):
+        point["tags"] = {
+            "greenhouse_id": getIdFromTopicTag(tags[0]),
+            "plant_id": getIdFromTopicTag(tags[1]),
+            "sensor_type": tags[2]
         }
     else:
-        point["tags"]={
-            "greenhouse_id":getIdFromTopicTag(tags[0]),
-            "sensor_type":tags[1]
+        point["tags"] = {
+            "greenhouse_id": getIdFromTopicTag(tags[0]),
+            "sensor_type": tags[1]
         }
-    point["fields"]={
-        "value":payload["value"]
+    point["fields"] = {
+        "value": payload["value"]
     }
     return point
 
