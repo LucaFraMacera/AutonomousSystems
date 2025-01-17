@@ -2306,3 +2306,53 @@
 1737125000: Client auto-02F44D4B-198A-C9DE-4708-332DD68DE320 closed its connection.
 1737125002: mosquitto version 2.0.20 terminating
 1737125002: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737129562: mosquitto version 2.0.20 starting
+1737129562: Config loaded from /mosquitto/config/mosquitto.conf.
+1737129562: Opening ipv4 listen socket on port 1883.
+1737129562: Opening ipv6 listen socket on port 1883.
+1737129562: mosquitto version 2.0.20 running
+1737129563: New connection from 172.18.0.8:43013 on port 1883.
+1737129563: New client connected from 172.18.0.8:43013 as auto-529F05F5-A5C0-A0C5-3657-F9480674B6EE (p2, c1, k60).
+1737129563: New connection from 172.18.0.9:55045 on port 1883.
+1737129563: New client connected from 172.18.0.9:55045 as Publisher (p2, c1, k60).
+1737129567: New connection from 172.18.0.10:55187 on port 1883.
+1737129567: New client connected from 172.18.0.10:55187 as auto-7835A029-A7BE-5DD7-E8C9-7CCC7BD4D4C9 (p2, c1, k60).
+1737129567: New connection from 172.18.0.11:58941 on port 1883.
+1737129567: New client connected from 172.18.0.11:58941 as auto-5C299599-6DFD-B395-93EC-4C959E1F3BB6 (p2, c1, k60).
+1737129588: New connection from 172.18.0.2:39617 on port 1883.
+1737129588: New client connected from 172.18.0.2:39617 as auto-0F93904F-E109-F018-87DD-09B011E12639 (p2, c1, k60).
+1737129592: New connection from 172.18.0.4:58599 on port 1883.
+1737129592: New client connected from 172.18.0.4:58599 as auto-F1E5243B-4C15-3B6C-C655-A8709EEB3CDC (p2, c1, k60).
+1737129682: Client auto-0F93904F-E109-F018-87DD-09B011E12639 has exceeded timeout, disconnecting.
+1737129688: Client auto-F1E5243B-4C15-3B6C-C655-A8709EEB3CDC has exceeded timeout, disconnecting.
+1737129700: Client auto-529F05F5-A5C0-A0C5-3657-F9480674B6EE closed its connection.
+1737129700: Client auto-7835A029-A7BE-5DD7-E8C9-7CCC7BD4D4C9 closed its connection.
+1737129700: Client Publisher closed its connection.
+1737129700: Client auto-5C299599-6DFD-B395-93EC-4C959E1F3BB6 closed its connection.
+1737129702: mosquitto version 2.0.20 terminating
+1737129702: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737129953: mosquitto version 2.0.20 starting
+1737129953: Config loaded from /mosquitto/config/mosquitto.conf.
+1737129953: Opening ipv4 listen socket on port 1883.
+1737129953: Opening ipv6 listen socket on port 1883.
+1737129953: mosquitto version 2.0.20 running
+1737129954: New connection from 172.18.0.9:46511 on port 1883.
+1737129954: New client connected from 172.18.0.9:46511 as Publisher (p2, c1, k60).
+1737129955: New connection from 172.18.0.11:38973 on port 1883.
+1737129955: New client connected from 172.18.0.11:38973 as auto-8F232AAC-86BA-22DF-55DF-79B70ACEECB7 (p2, c1, k60).
+1737129958: New connection from 172.18.0.10:36349 on port 1883.
+1737129958: New client connected from 172.18.0.10:36349 as auto-483EAB8A-1FA0-6F80-76F4-04EE4F0C4D45 (p2, c1, k60).
+1737129958: New connection from 172.18.0.8:47749 on port 1883.
+1737129958: New client connected from 172.18.0.8:47749 as auto-F38DB829-619C-9195-6C15-DAD4DBB8606B (p2, c1, k60).
+1737129981: New connection from 172.18.0.3:42547 on port 1883.
+1737129981: New client connected from 172.18.0.3:42547 as auto-93E91122-1B7A-0F33-4B1D-DBF8210D3B5A (p2, c1, k60).
+1737129981: Client auto-F38DB829-619C-9195-6C15-DAD4DBB8606B closed its connection.
+1737129982: New connection from 172.18.0.2:60681 on port 1883.
+1737129982: New client connected from 172.18.0.2:60681 as auto-64C0653A-BD49-FF0F-F6E4-E9C17472134B (p2, c1, k60).
+1737130096: Client Publisher closed its connection.
+1737130096: Client auto-64C0653A-BD49-FF0F-F6E4-E9C17472134B closed its connection.
+1737130096: Client auto-93E91122-1B7A-0F33-4B1D-DBF8210D3B5A closed its connection.
+1737130096: Client auto-8F232AAC-86BA-22DF-55DF-79B70ACEECB7 closed its connection.
+1737130105: Client auto-483EAB8A-1FA0-6F80-76F4-04EE4F0C4D45 closed its connection.
+1737130106: mosquitto version 2.0.20 terminating
+1737130106: Saving in-memory database to /mosquitto/data//mosquitto.db.

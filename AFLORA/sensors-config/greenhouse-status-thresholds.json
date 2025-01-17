@@ -1,40 +1,41 @@
 {
     "NORMAL": {
-        "temperature": [],
-        "humidity": [],
-        "co2": [],
+        "temperature": [0, 30],
+        "humidity": [0, 60],
+        "co2": [0, 10000],
         "smoke": false,
-        "fine_dust": []
+        "fine_dust": [0, 15]
     },
     "HIGH_CO2": {
-        "co2": []
+        "co2": [10000, 50000]
     },
     "EXTREME_CO2": {
-        "co2": []
+        "co2": [50000, 100000]
     },
     "SMOKE": {
-        "smoke": false
+        "smoke": true
     },
     "FIRE": {
-        "temperature": [],
-        "smoke": false
+        "temperature": [50, 100],
+        "co2": [10000, 50000],
+        "smoke": true
     },
     "HIGH_DUST": {
-        "fine_dust": []
+        "fine_dust": [15, 50]
     },
     "EXTREME_DUST": {
-        "fine_dust": []
+        "fine_dust": [50, 100]
     },
     "HIGH_TEMPERATURE": {
-        "temperature": []
+        "temperature": [30, 50]
     },
     "EXTREME_TEMPERATURE": {
-        "temperature": []
+        "temperature": [50, 100]
     },
     "HIGH_HUMIDITY": {
-        "humidity": []
+        "humidity": [60, 100]
     },
     "EXTREME_HUMIDITY": {
-        "humidity": []
+        "humidity": [100, 150]
     }
 }

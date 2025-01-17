@@ -26,7 +26,7 @@ class Analyzer(ABC):
         pass
 
     def start(self):
-        print("Plant Analyzer is starting...", flush=True)
+        print("Analyzer is starting...", flush=True)
         while True:
             self._check_status()
             print("Sleeping", flush=True)

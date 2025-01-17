@@ -1,2 +1,5 @@
+from greenhouse_analyzer import GreenhouseAnalyzer
+
 if __name__ == "__main__":
-    pass
+    greenhouse_analyzer = GreenhouseAnalyzer()
+    greenhouse_analyzer.start()

@@ -2,9 +2,9 @@
     {
         "name": "temperature",
         "unit": "°C",
-        "min": -20,
-        "max": 50,
-        "threshold_min": 13,
+        "min": 0,
+        "max": 100,
+        "threshold_min": 0,
         "threshold_max": 30,
         "chart_type": "disc"
     },
@@ -13,7 +13,7 @@
         "unit": "%",
         "min": 0,
         "max": 150,
-        "threshold_min": 40,
+        "threshold_min": 0,
         "threshold_max": 60,
         "chart_type": "disc"
     },
