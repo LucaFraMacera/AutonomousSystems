@@ -42,6 +42,18 @@ x-executor-service: &executor-service
   networks:
     - aflora_network
 
+x-managed-resources-service: &managed-resources-service
+  environment:
+    - MQTT_SERVICE_NAME=mqtt_broker
+    - MQTT_BROKER_PORT=1883
+  volumes:
+    - ./managed-resources/managed_resource.py:/managed_resource.py
+    - ./managed-resources/requirements.txt:/requirements.txt
+    - ./sensors-config:/sensors-config
+  networks:
+    - aflora_network
+
+
 services:
 
   monitor:
@@ -107,22 +119,25 @@ services:
       context: executor/plant-executor/
       dockerfile: Dockerfile
 
-
-  managed_resources:
-    container_name: managed_resources
+  irrigation_system:
+    <<: *managed-resources-service
+    container_name: irrigation_system
     build:
-      context: ./managed-resources
+      context: managed-resources/irrigation-system
       dockerfile: Dockerfile
-    environment:
-      - MQTT_SERVICE_NAME=mqtt_broker
-      - MQTT_BROKER_PORT=1883
-    networks:
-      - aflora_network
-    depends_on:
-      - greenhouse_executor
-      - plant_executor
-    volumes:
-      - ./sensors-config:/app/sensors-config
+
+  ventilation_system:
+    <<: *managed-resources-service
+    container_name: ventilation_system
+    build:
+      context: managed-resources/ventilation-system
+
+  dehumidification_system:
+    <<: *managed-resources-service
+    container_name: dehumidification_system
+    build:
+      context: managed-resources/dehumidification-system
+
 
   node_red:
     container_name: node_red

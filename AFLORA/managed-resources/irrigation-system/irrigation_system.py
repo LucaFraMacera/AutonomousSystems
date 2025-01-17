@@ -3,7 +3,7 @@ import re
 import json
 from plant_sprinkler import PlantSprinkler
 
-PLANT_CONFIG_JSON_FILE_PATH = "/app/sensors-config/plants-config.json"
+PLANT_CONFIG_JSON_FILE_PATH = "/sensors-config/plants-config.json"
 GREENHOUSE_ID_KEY = "greenhouse_id"
 PLANTS_KEY = "plants"
 
@@ -56,13 +56,14 @@ def on_subscribe(client, userdata, mid, reason_code_list, properties):
 
 
 def on_message(client, userdata, msg):
-    print(f"Plant action updated {msg.topic}", flush=True)
+    print(f"Irrigation system action updated {msg.topic}", flush=True)
     regex = r"^\/([^\/]+)(?:\/([^\/]+))?\/irrigation_system"
     result = re.match(regex, msg.topic)
     if not result:
         return
     matched_groups = result.groups()
     published_mode = json.loads(msg.payload.decode('UTF-8'))["value"].upper()
+    print(f"Mode: {published_mode}", flush=True)
 
     if matched_groups[1] is not None:
         plant_sprinkler = SPRINKLERS[matched_groups[0]][matched_groups[1]]
@@ -92,4 +93,4 @@ class IrrigationSystem(ManagedResource):
 
     def __init__(self) -> None:
         super().__init__(on_message=on_message, on_connect=on_connect, on_subscribe=on_subscribe)
-        print("Starting irrigation system...")
+        print("Starting irrigation system...", flush=True)
