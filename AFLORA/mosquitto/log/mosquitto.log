@@ -2218,3 +2218,91 @@
 1737123383: Client auto-2D0CA41F-939C-F681-8021-E98376AA5E30 closed its connection.
 1737123384: mosquitto version 2.0.20 terminating
 1737123384: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737124047: mosquitto version 2.0.20 starting
+1737124047: Config loaded from /mosquitto/config/mosquitto.conf.
+1737124047: Opening ipv4 listen socket on port 1883.
+1737124047: Opening ipv6 listen socket on port 1883.
+1737124047: mosquitto version 2.0.20 running
+1737124047: New connection from 172.23.0.8:50057 on port 1883.
+1737124047: New client connected from 172.23.0.8:50057 as Publisher (p2, c1, k60).
+1737124048: New connection from 172.23.0.2:49171 on port 1883.
+1737124048: New client connected from 172.23.0.2:49171 as auto-C9B07E2E-199A-0A05-89F3-807DCAC4C8DB (p2, c1, k60).
+1737124048: New connection from 172.23.0.6:54167 on port 1883.
+1737124048: New client connected from 172.23.0.6:54167 as auto-F95C526B-32D2-8BE7-3445-AE71411C6A76 (p2, c1, k60).
+1737124048: Client auto-F95C526B-32D2-8BE7-3445-AE71411C6A76 closed its connection.
+1737124048: New connection from 172.23.0.9:37877 on port 1883.
+1737124048: New client connected from 172.23.0.9:37877 as auto-1F8A54CB-2A55-BD40-974C-42689BD8059B (p2, c1, k60).
+1737124049: New connection from 172.23.0.10:55449 on port 1883.
+1737124049: New client connected from 172.23.0.10:55449 as auto-7F18F426-38AF-26F4-5984-9B104C409875 (p2, c1, k60).
+1737124062: Client auto-C9B07E2E-199A-0A05-89F3-807DCAC4C8DB closed its connection.
+1737124409: Client Publisher closed its connection.
+1737124409: Client auto-7F18F426-38AF-26F4-5984-9B104C409875 closed its connection.
+1737124409: Client auto-1F8A54CB-2A55-BD40-974C-42689BD8059B closed its connection.
+1737124410: mosquitto version 2.0.20 terminating
+1737124410: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737124415: mosquitto version 2.0.20 starting
+1737124415: Config loaded from /mosquitto/config/mosquitto.conf.
+1737124415: Opening ipv4 listen socket on port 1883.
+1737124415: Opening ipv6 listen socket on port 1883.
+1737124415: mosquitto version 2.0.20 running
+1737124416: New connection from 172.23.0.9:56311 on port 1883.
+1737124416: New client connected from 172.23.0.9:56311 as auto-5AE134D8-DE79-35AD-187C-DFB993DA7705 (p2, c1, k60).
+1737124416: New connection from 172.23.0.2:53351 on port 1883.
+1737124416: New client connected from 172.23.0.2:53351 as auto-121C6AA4-3B06-0C0D-3B54-3DBEFE7D5866 (p2, c1, k60).
+1737124416: Client auto-121C6AA4-3B06-0C0D-3B54-3DBEFE7D5866 closed its connection.
+1737124417: New connection from 172.23.0.8:36893 on port 1883.
+1737124417: New client connected from 172.23.0.8:36893 as auto-C04ED7AD-3B7D-945C-FFD5-C433FF2DB901 (p2, c1, k60).
+1737124417: New connection from 172.23.0.11:54065 on port 1883.
+1737124417: New client connected from 172.23.0.11:54065 as Publisher (p2, c1, k60).
+1737124417: Client auto-5AE134D8-DE79-35AD-187C-DFB993DA7705 closed its connection.
+1737124417: New connection from 172.23.0.10:37965 on port 1883.
+1737124417: New client connected from 172.23.0.10:37965 as auto-039EE864-10B0-6182-A2E7-9063F822B707 (p2, c1, k60).
+1737124536: Client auto-039EE864-10B0-6182-A2E7-9063F822B707 closed its connection.
+1737124536: Client auto-C04ED7AD-3B7D-945C-FFD5-C433FF2DB901 closed its connection.
+1737124537: Client Publisher closed its connection.
+1737124537: mosquitto version 2.0.20 terminating
+1737124537: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737124541: mosquitto version 2.0.20 starting
+1737124541: Config loaded from /mosquitto/config/mosquitto.conf.
+1737124541: Opening ipv4 listen socket on port 1883.
+1737124541: Opening ipv6 listen socket on port 1883.
+1737124541: mosquitto version 2.0.20 running
+1737124542: New connection from 172.23.0.8:48263 on port 1883.
+1737124542: New client connected from 172.23.0.8:48263 as auto-C2553FC4-7A72-8642-556F-2DF59CE97DA5 (p2, c1, k60).
+1737124542: New connection from 172.23.0.10:35607 on port 1883.
+1737124542: New client connected from 172.23.0.10:35607 as Publisher (p2, c1, k60).
+1737124543: New connection from 172.23.0.9:46629 on port 1883.
+1737124543: New client connected from 172.23.0.9:46629 as auto-9DA2B47F-F781-A01C-5326-5BD5D9E35763 (p2, c1, k60).
+1737124543: New connection from 172.23.0.5:46561 on port 1883.
+1737124543: New client connected from 172.23.0.5:46561 as auto-C96FFB45-98C1-F4C2-1EE4-AF89DE6F49D7 (p2, c1, k60).
+1737124543: New connection from 172.23.0.11:60745 on port 1883.
+1737124543: New client connected from 172.23.0.11:60745 as auto-F8E9D47E-3FF8-B6A8-DCAA-20D90E73112B (p2, c1, k60).
+1737124576: Client Publisher closed its connection.
+1737124576: Client auto-F8E9D47E-3FF8-B6A8-DCAA-20D90E73112B closed its connection.
+1737124576: Client auto-9DA2B47F-F781-A01C-5326-5BD5D9E35763 closed its connection.
+1737124576: Client auto-C2553FC4-7A72-8642-556F-2DF59CE97DA5 closed its connection.
+1737124576: Client auto-C96FFB45-98C1-F4C2-1EE4-AF89DE6F49D7 closed its connection.
+1737124577: mosquitto version 2.0.20 terminating
+1737124577: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737124823: mosquitto version 2.0.20 starting
+1737124823: Config loaded from /mosquitto/config/mosquitto.conf.
+1737124823: Opening ipv4 listen socket on port 1883.
+1737124823: Opening ipv6 listen socket on port 1883.
+1737124823: mosquitto version 2.0.20 running
+1737124824: New connection from 172.23.0.2:50325 on port 1883.
+1737124824: New client connected from 172.23.0.2:50325 as auto-153F9408-5E65-487C-1DCA-4D166A2D8082 (p2, c1, k60).
+1737124824: New connection from 172.23.0.10:58899 on port 1883.
+1737124824: New client connected from 172.23.0.10:58899 as Publisher (p2, c1, k60).
+1737124824: New connection from 172.23.0.9:35949 on port 1883.
+1737124824: New client connected from 172.23.0.9:35949 as auto-5AD66F52-7954-2772-604C-FC7238D867D6 (p2, c1, k60).
+1737124824: New connection from 172.23.0.8:48965 on port 1883.
+1737124824: New client connected from 172.23.0.8:48965 as auto-15E8AC3F-E9DF-BA87-5863-672893596A9F (p2, c1, k60).
+1737124825: New connection from 172.23.0.11:40821 on port 1883.
+1737124825: New client connected from 172.23.0.11:40821 as auto-02F44D4B-198A-C9DE-4708-332DD68DE320 (p2, c1, k60).
+1737124919: Client auto-153F9408-5E65-487C-1DCA-4D166A2D8082 has exceeded timeout, disconnecting.
+1737125000: Client Publisher closed its connection.
+1737125000: Client auto-15E8AC3F-E9DF-BA87-5863-672893596A9F closed its connection.
+1737125000: Client auto-5AD66F52-7954-2772-604C-FC7238D867D6 closed its connection.
+1737125000: Client auto-02F44D4B-198A-C9DE-4708-332DD68DE320 closed its connection.
+1737125002: mosquitto version 2.0.20 terminating
+1737125002: Saving in-memory database to /mosquitto/data//mosquitto.db.

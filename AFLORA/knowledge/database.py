@@ -1,6 +1,7 @@
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 import os
+import functools
 
 
 class Database:
@@ -32,8 +33,11 @@ class Database:
         query += f'|>filter(fn:(r)=>r["_measurement"]=="{self.MEASUREMENT}")'
         for tag, value in tags.items():
             if tag != "start_time" and tag != "end_time":
-                query += f'|>filter(fn:(r)=>r["{tag}"]=="{value}")'
-        
+                if tag == "sensor_type" and len(value) > 0:
+                    query += f'|>filter(fn:(r)=>{self.createSensorTypeFilterQuery(value)})'
+                else:
+                    query += f'|>filter(fn:(r)=>r["{tag}"]=="{value}")'
+        print(f"Query {query}", flush=True)
         result = query_api.query(query=query, org=self._org)
         # Getting values from the returning records
         sensorReadings = []
@@ -51,3 +55,10 @@ class Database:
         if "plant_id" in record.values:
             current_sensor_reading["plant_id"] = record["plant_id"]
         return current_sensor_reading
+    
+    def createSensorTypeFilterQuery(self, sensor_types):
+        filter_text = 'r["sensor_type"]=="{sensor_type}"'
+        filter = filter_text.format(sensor_type=sensor_types[0])
+        for i in range(1, len(sensor_types)):
+            filter += f' or {filter_text.format(sensor_type=sensor_types[i])}'
+        return filter
