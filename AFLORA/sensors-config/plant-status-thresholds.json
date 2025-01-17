@@ -1,0 +1,11 @@
+{
+  "NORMAL": {
+    "soil_moisture": [40, 100]
+  },
+  "THIRSTY": {
+    "soil_moisture": [20, 40]
+  },
+  "DEHYDRATED": {
+    "soil_moisture": [0, 20]
+  }
+}

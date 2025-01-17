@@ -1,0 +1,40 @@
+{
+    "NORMAL": {
+        "temperature": [],
+        "humidity": [],
+        "co2": [],
+        "smoke": false,
+        "fine_dust": []
+    },
+    "HIGH_CO2": {
+        "co2": []
+    },
+    "EXTREME_CO2": {
+        "co2": []
+    },
+    "SMOKE": {
+        "smoke": false
+    },
+    "FIRE": {
+        "temperature": [],
+        "smoke": false
+    },
+    "HIGH_DUST": {
+        "fine_dust": []
+    },
+    "EXTREME_DUST": {
+        "fine_dust": []
+    },
+    "HIGH_TEMPERATURE": {
+        "temperature": []
+    },
+    "EXTREME_TEMPERATURE": {
+        "temperature": []
+    },
+    "HIGH_HUMIDITY": {
+        "humidity": []
+    },
+    "EXTREME_HUMIDITY": {
+        "humidity": []
+    }
+}

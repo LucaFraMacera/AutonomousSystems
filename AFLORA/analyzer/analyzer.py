@@ -3,21 +3,27 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from abc import ABC, abstractmethod
 import os
+import json
 
 MQTT_SERVICE_NAME = os.environ.get('MQTT_SERVICE_NAME')
 MQTT_BROKER_PORT = int(os.environ.get('MQTT_BROKER_PORT'))
+VALUE_KEY = 'value'
 
 
 class Analyzer(ABC):
 
     def __init__(self):
         # Message Broker connection
-        self.__client_mqtt = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, reconnect_on_failure=True)
-        self.__client_mqtt.connect(MQTT_SERVICE_NAME, MQTT_BROKER_PORT)
+        self._client_mqtt = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, reconnect_on_failure=True)
+        self._client_mqtt.connect(MQTT_SERVICE_NAME, MQTT_BROKER_PORT)
 
     @abstractmethod
     def _check_status(self):
         pass
+
+    def _publish_value_on_topic(self, value, topic):
+        payload = json.dumps({VALUE_KEY: value})  # Serialize only the JSON value
+        self._client_mqtt.publish(topic, payload)
 
     def _predictNextValues(self, values, window_size, num_predictions):
         """
@@ -29,7 +35,7 @@ class Analyzer(ABC):
 
         # Ensure there is enough data
         if len(values_array) <= window_size:
-            print(f"Not enough data to generate windows. Dataset size: {len(values_array)}, window_size: {window_size}")
+            print(f"Not enough data to generate windows. Dataset size: {len(values_array)}, window_size: {window_size}", flush=True)
             return []
 
         # Prepare the data for linear regression
@@ -45,9 +51,9 @@ class Analyzer(ABC):
         y = np.array(y)
 
         # Debugging: Print shapes and contents of X and y
-        print(f"X shape: {X.shape}, y shape: {y.shape}")
-        print(f"X: {X}")
-        print(f"y: {y}")
+        # print(f"X shape: {X.shape}, y shape: {y.shape}", flush=True)
+        # print(f"X: {X}", flush=True)
+        # print(f"y: {y}", flush=True)
 
         # Ensure X is 2D and y is 1D
         X = X.reshape(-1, window_size)
