@@ -1,11 +1,20 @@
 import paho.mqtt.client as mqtt
 from knowledge.database import Database
 import json
+import re
+
+def getIdFromTopicTag(tag):
+    # Matches only strings in the form of prefix_id
+    regex = r"(.+)_([0-9]+$)"
+    result = re.match(regex, tag)
+    if(result):
+        parts = result.groups()
+        return parts[1]
+    return None
 
 def parseBrokerMessage(message):
     topic = message.topic
     payload = json.loads(message.payload.decode("utf-8"))
-    print(payload)
     tags = []
     for value in topic.split("/"):
         if(len(value) > 0):
@@ -15,13 +24,13 @@ def parseBrokerMessage(message):
     point = {}
     if(len(tags) == 3):
         point["tags"]={
-            "greenhouse_id":tags[0],
-            "plant_id":tags[1],
+            "greenhouse_id":getIdFromTopicTag(tags[0]),
+            "plant_id":getIdFromTopicTag(tags[1]),
             "sensor_type":tags[2]
         }
     else:
         point["tags"]={
-            "greenhouse_id":tags[0],
+            "greenhouse_id":getIdFromTopicTag(tags[0]),
             "sensor_type":tags[1]
         }
     point["fields"]={
@@ -34,12 +43,12 @@ def on_connect(client, userdata, flags, reason_code, properties):
     if reason_code.is_failure:
         print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
-        print("Connected")
-        client.subscribe("#")
+        print("Connected", flush=True)
+        client.subscribe("+/+/#")
 
 
 def on_message(client, userdata, msg):
-    print("Message arrived")
+    print("Message arrived", flush=True)
     message = parseBrokerMessage(message=msg)
     if message is not None:
         database.databaseWrite(message)
@@ -47,9 +56,9 @@ def on_message(client, userdata, msg):
 
 def on_subscribe(client, userdata, mid, reason_code_list, properties):
     if reason_code_list[0].is_failure:
-        print(f"Broker rejected you subscription: {reason_code_list[0]}")
+        print(f"Broker rejected you subscription: {reason_code_list[0]}", flush=True)
     else:
-        print(f"Broker granted the following QoS: {reason_code_list[0].value}")
+        print(f"Broker granted the following QoS: {reason_code_list[0].value}", flush=True)
 
 
 if __name__ == '__main__':
