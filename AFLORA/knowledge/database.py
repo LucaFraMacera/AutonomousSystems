@@ -37,6 +37,7 @@ class Database:
                     query += f'|>filter(fn:(r)=>{self.createSensorTypeFilterQuery(value)})'
                 else:
                     query += f'|>filter(fn:(r)=>r["{tag}"]=="{value}")'
+        query += f'|> sort(columns: ["_time"], desc: true)'
         print(f"Query {query}", flush=True)
         result = query_api.query(query=query, org=self._org)
         # Getting values from the returning records
