@@ -27,7 +27,7 @@ class GreenhouseDehumidifier:
 
     def operate_at_full_throttle(self, mqtt_client):
         if self.__status != self.__STATE_FULL_THROTTLE_KEY:
-            self.turn_on()
+            self.turn_on(mqtt_client)
             sleep(1)
             self.__status = self.__STATE_FULL_THROTTLE_KEY
             self.__publish_notification(mqtt_client, "OPERATING FULL THROTTLE")

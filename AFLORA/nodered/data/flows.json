@@ -10,7 +10,7 @@
     {
         "id": "d0f616a33e4a23c2",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Action Notification",
         "disabled": false,
         "info": "",
         "env": []
@@ -234,7 +234,7 @@
         "z": "d0f616a33e4a23c2",
         "name": "",
         "topic": "/action_notification",
-        "qos": "0",
+        "qos": "2",
         "datatype": "auto-detect",
         "broker": "61699ef14cb42f13",
         "nl": false,

@@ -61,7 +61,7 @@
         "id": "61699ef14cb42f13",
         "type": "mqtt-broker",
         "name": "Notification Broker",
-        "broker": "http://host.internal.docker",
+        "broker": "http://host.docker.internal",
         "port": 1883,
         "clientid": "",
         "autoConnect": true,

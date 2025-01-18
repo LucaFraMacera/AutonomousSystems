@@ -81,12 +81,10 @@ def generate_sensor_data(sensor):
 def generate_sensor_reading(boundaries, thresholds):
     min_value, max_value = boundaries
     min_threshold, max_threshold = thresholds
-    if random.random() < 0.99: # generate random below threshold with probability 0.9
-        return random.uniform(min_threshold+1, max_threshold-1)
-    # generate random above threshold with probability 0.1
-    if random.random() < 0.1:
-        return random.uniform(min_value, min_threshold)
-    return round(random.uniform(max_threshold, max_value), 2)
+    normal_value = round(random.uniform(min_threshold+1, max_threshold-1), 2)
+    under_min_threshold_value = round(random.uniform(min_value, min_threshold), 2)
+    over_max_threshold_value = round(random.uniform(max_threshold, max_value), 2)
+    return random.choices(population=[normal_value, under_min_threshold_value, over_max_threshold_value], weights=[100, 1, 1])[0]
 
 
 if __name__ == "__main__":

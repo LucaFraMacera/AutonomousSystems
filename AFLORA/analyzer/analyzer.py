@@ -35,7 +35,7 @@ class Analyzer(ABC):
         while True:
             self._check_status()
             print("Sleeping", flush=True)
-            sleep(5)
+            sleep(15)
 
     def _publish_value_on_topic(self, value, topic):
         payload = json.dumps({VALUE_KEY: value})  # Serialize only the JSON value

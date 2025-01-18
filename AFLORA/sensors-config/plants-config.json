@@ -1,10 +1,14 @@
 [
     {
         "greenhouse_id": "1",
-        "plants": ["001", "002", "003"]
+        "plants": ["001", "002", "003"],
+        "number_of_windows": 8,
+        "number_of_dehumidifiers":2
     },
     {
         "greenhouse_id": "2",
-        "plants": ["004", "005", "006", "007"]
+        "plants": ["004", "005", "006", "007"],
+        "number_of_windows": 3,
+        "number_of_dehumidifiers":5
     }
 ]

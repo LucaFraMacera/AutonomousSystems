@@ -4,16 +4,13 @@ import json
 from greenhouse_dehumidifier import GreenhouseDehumidifier
 import random
 
-MIN_NUMBER_OF_DEHUMIDIFIER_IN_GREENHOUSE = 3
-MAX_NUMBER_OF_DEHUMIDIFIER_IN_GREENHOUSE = 8
 PLANT_CONFIG_JSON_FILE_PATH = "/sensors-config/plants-config.json"
 GREENHOUSE_ID_KEY = "greenhouse_id"
-
+NUMBER_OF_DEHUMIDIFIER_KEY = "number_of_dehumidifiers"
 
 def greenhouses_config():
     with open(PLANT_CONFIG_JSON_FILE_PATH, 'r') as file:
-        greenhouses = json.load(file)
-        return [greenhouse[GREENHOUSE_ID_KEY] for greenhouse in greenhouses]
+        return json.load(file)
 
 
 GREENHOUSES = greenhouses_config()
@@ -21,12 +18,12 @@ GREENHOUSES = greenhouses_config()
 
 def set_up_dehumidifiers():
     dehumidifiers = {}
-    for greenhouse_id in GREENHOUSES:
-        greenhouse_key = f"greenhouse_{greenhouse_id}"
+    for greenhouse in GREENHOUSES:
+        greenhouse_key = f"greenhouse_{greenhouse[GREENHOUSE_ID_KEY]}"
 
         dehumidifiers[greenhouse_key] = []
-        for dehumidifier_id in range(random.randint(MIN_NUMBER_OF_DEHUMIDIFIER_IN_GREENHOUSE, MAX_NUMBER_OF_DEHUMIDIFIER_IN_GREENHOUSE)):
-            dehumidifiers[greenhouse_key].append(GreenhouseDehumidifier(greenhouse_id, dehumidifier_id))
+        for dehumidifier_id in range(greenhouse[NUMBER_OF_DEHUMIDIFIER_KEY]):
+            dehumidifiers[greenhouse_key].append(GreenhouseDehumidifier(greenhouse[GREENHOUSE_ID_KEY], dehumidifier_id))
 
     return dehumidifiers
 

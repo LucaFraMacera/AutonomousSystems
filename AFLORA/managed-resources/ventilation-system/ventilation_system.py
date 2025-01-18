@@ -4,16 +4,13 @@ import json
 from greenhouse_window import GreenhouseWindow
 import random
 
-MIN_NUMBER_OF_WINDOWS_IN_GREENHOUSE = 5
-MAX_NUMBER_OF_WINDOWS_IN_GREENHOUSE = 10
 PLANT_CONFIG_JSON_FILE_PATH = "/sensors-config/plants-config.json"
 GREENHOUSE_ID_KEY = "greenhouse_id"
-
+NUMBER_OF_WINDOWS_KEY = "number_of_windows"
 
 def greenhouses_config():
     with open(PLANT_CONFIG_JSON_FILE_PATH, 'r') as file:
-        greenhouses = json.load(file)
-        return [greenhouse[GREENHOUSE_ID_KEY] for greenhouse in greenhouses]
+        return json.load(file)
 
 
 GREENHOUSES = greenhouses_config()
@@ -21,12 +18,12 @@ GREENHOUSES = greenhouses_config()
 
 def set_up_windows():
     windows = {}
-    for greenhouse_id in GREENHOUSES:
-        greenhouse_key = f"greenhouse_{greenhouse_id}"
+    for greenhouse in GREENHOUSES:
+        greenhouse_key = f"greenhouse_{greenhouse[GREENHOUSE_ID_KEY]}"
 
         windows[greenhouse_key] = []
-        for window_id in range(random.randint(MIN_NUMBER_OF_WINDOWS_IN_GREENHOUSE, MAX_NUMBER_OF_WINDOWS_IN_GREENHOUSE)):
-            windows[greenhouse_key].append(GreenhouseWindow(greenhouse_id, window_id))
+        for window_id in range(greenhouse[NUMBER_OF_WINDOWS_KEY]):
+            windows[greenhouse_key].append(GreenhouseWindow(greenhouse[GREENHOUSE_ID_KEY], window_id))
 
     return windows
 
