@@ -63,16 +63,16 @@ def on_message(client, userdata, msg):
     for window in WINDOWS[matched_groups[0]]:
 
         if published_mode == "CLOSE_WINDOWS":
-            window.close()
+            window.close(client)
 
         if published_mode == "OPEN_HALF_OF_THE_WINDOWS":
             if open_windows >= len(WINDOWS[matched_groups[0]]) // 2:
                 break
-            window.open()
+            window.open(client)
             open_windows += 1
 
         if published_mode == "OPEN_ALL_THE_WINDOWS":
-            window.open()
+            window.open(client)
 
 
 class VentilationSystem(ManagedResource):

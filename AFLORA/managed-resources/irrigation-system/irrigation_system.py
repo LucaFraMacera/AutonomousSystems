@@ -54,6 +54,14 @@ def on_subscribe(client, userdata, mid, reason_code_list, properties):
     else:
         print(f"Broker granted the following QoS: {reason_code_list[0].value}", flush=True)
 
+def do_action_on_sprinkler(sprinkler, action, client):
+    if action == "OFF":
+        sprinkler.turn_off(client)
+    if action == "ON":
+        sprinkler.turn_on(client)
+    if action == "FULL_THROTTLE":
+        sprinkler.operate_at_full_throttle(client)
+
 
 def on_message(client, userdata, msg):
     print(f"Irrigation system action updated {msg.topic}", flush=True)
@@ -67,26 +75,12 @@ def on_message(client, userdata, msg):
 
     if matched_groups[1] is not None:
         plant_sprinkler = SPRINKLERS[matched_groups[0]][matched_groups[1]]
-        if published_mode == "OFF":
-            plant_sprinkler.turn_off()
-
-        if published_mode == "ON":
-            plant_sprinkler.turn_on()
-
-        if published_mode == "FULL_THROTTLE":
-            plant_sprinkler.operate_at_full_throttle()
+        do_action_on_sprinkler(plant_sprinkler, published_mode, client)
     else:
         greenhouse_plants = SPRINKLERS[matched_groups[0]]
         for plant_id in greenhouse_plants:
             plant_sprinkler = greenhouse_plants[plant_id]
-            if published_mode == "OFF":
-                plant_sprinkler.turn_off()
-
-            if published_mode == "ON":
-                plant_sprinkler.turn_on()
-
-            if published_mode == "FULL_THROTTLE":
-                plant_sprinkler.operate_at_full_throttle()
+            do_action_on_sprinkler(plant_sprinkler, published_mode, client)
 
 
 class IrrigationSystem(ManagedResource):

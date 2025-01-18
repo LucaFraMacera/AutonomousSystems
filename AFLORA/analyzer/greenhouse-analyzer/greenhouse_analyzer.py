@@ -136,7 +136,7 @@ class GreenhouseAnalyzer(Analyzer):
             # check if current value is already above threshold
             current_sensors_single_readings = self.build_greenhouse_sensors_single_readings(sensor_types)
             if self.__check_critical_status_and_send_alert(greenhouse_id=greenhouse_id, sensor_readings=current_sensors_single_readings):
-                print("Current value is critical!", flush=True)
+                print(f"Current value {current_sensors_single_readings} is critical!", flush=True)
                 continue
 
             predictions = {}

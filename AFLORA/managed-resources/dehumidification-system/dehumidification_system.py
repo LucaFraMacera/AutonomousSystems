@@ -62,13 +62,13 @@ def on_message(client, userdata, msg):
     for dehumidifier in DEHUMIDIFIERS[matched_groups[0]]:
 
         if published_mode == "OFF":
-            dehumidifier.turn_off()
+            dehumidifier.turn_off(client)
 
         if published_mode == "ON":
-            dehumidifier.turn_on()
+            dehumidifier.turn_on(client)
 
         if published_mode == "FULL_THROTTLE":
-            dehumidifier.operate_at_full_throttle()
+            dehumidifier.operate_at_full_throttle(client)
 
 
 class DehumidificationSystem(ManagedResource):

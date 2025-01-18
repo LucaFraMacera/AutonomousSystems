@@ -64,7 +64,7 @@ class PlantAnalyzer(Analyzer):
 
                 # check if current value is already above threshold
                 if len(readings) > 0 and self.__check_critical_status_and_send_alert(greenhouse_id=greenhouse_id, plant_id=plant_id, soil_moisture_value=readings[0]):
-                    print("Current value is critical!", flush=True)
+                    print(f"Current value {readings[0]} is critical!", flush=True)
                     continue
 
                 predictions = self._predictNextValues(readings, window_size=3, num_predictions=3)

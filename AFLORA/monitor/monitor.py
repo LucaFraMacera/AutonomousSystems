@@ -65,7 +65,7 @@ def on_connect(client, userdata, flags, reason_code, properties):
         print(f"Failed to connect: {reason_code}. loop_forever() will retry connection")
     else:
         print("Connected", flush=True)
-        client.subscribe("+/+/#")
+        client.subscribe("/+/+/#")
 
 
 def on_message(client, userdata, msg):

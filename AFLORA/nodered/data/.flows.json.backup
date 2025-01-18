@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "d0f616a33e4a23c2",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "662fd1abba56a419",
         "type": "telegram bot",
         "botname": "FLORA_BOT",
@@ -48,6 +56,37 @@
         "url": "http://host.docker.internal:8086",
         "timeout": "",
         "rejectUnauthorized": true
+    },
+    {
+        "id": "61699ef14cb42f13",
+        "type": "mqtt-broker",
+        "name": "Notification Broker",
+        "broker": "http://host.internal.docker",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "2741cadd25e52534",
@@ -176,7 +215,7 @@
         "name": "Check Greenhouse Sensor Data",
         "func": "const GREENHOUSES = JSON.parse(env.get('GREENHOUSE_SENSORS'))\n\nconst greenhouseSensorsThresholds = {}\n\nGREENHOUSES.map(sensorConfig => {\n    greenhouseSensorsThresholds[sensorConfig.name] = {\n        min: sensorConfig.threshold_min,\n        max: sensorConfig.threshold_max,\n        unit: sensorConfig.unit,\n        lethalLimit: sensorConfig['lethal_limit']\n    }\n})\n\nconst telegramMessage = {\n    payload:{\n        chatId: env.get('CHAT_ID'),\n        type:\"message\",\n        content: ``\n    }\n}\n\nconst greehouseSensorAlerts = new Map()\n\n\nmsg.payload.forEach(data => {\n    if(data['plant_id']){\n        return\n    }\n    const value = data._value\n    const greenhouse = data.greenhouse_id\n    const sensorType = data.sensor_type\n    const topic = `/greenhouse_${greenhouse}/${sensorType}`\n    const threshold_sensor = greenhouseSensorsThresholds[sensorType];\n    if (value > threshold_sensor.max || value < threshold_sensor.min) {\n        greehouseSensorAlerts.set(topic, value);\n    }\n});\n\nconsole.log(`Greenhouse Alerts :`, greehouseSensorAlerts)\n\ngreehouseSensorAlerts.forEach((value, key) =>{\n    const splittedTopic = key.split(\"/\").filter(v => v.length > 0)\n    telegramMessage.payload.content += \n        `Alert for ${splittedTopic[0]}!\n        A value of ${value}${greenhouseSensorsThresholds[splittedTopic[1]].unit} for ${splittedTopic[1]} was detected!\\n`\n})\nreturn telegramMessage;",
         "outputs": 1,
-        "timeout": 0,
+        "timeout": "1",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -186,6 +225,61 @@
         "wires": [
             [
                 "2741cadd25e52534"
+            ]
+        ]
+    },
+    {
+        "id": "2fa9ba4944daa153",
+        "type": "mqtt in",
+        "z": "d0f616a33e4a23c2",
+        "name": "",
+        "topic": "/action_notification",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "61699ef14cb42f13",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "efb801b1547a95ad"
+            ]
+        ]
+    },
+    {
+        "id": "2a84092a82eaac65",
+        "type": "telegram sender",
+        "z": "d0f616a33e4a23c2",
+        "name": "Send Alerts to User",
+        "bot": "662fd1abba56a419",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 730,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "efb801b1547a95ad",
+        "type": "function",
+        "z": "d0f616a33e4a23c2",
+        "name": "Check Plant Sensor Data",
+        "func": "const telegramMessage = {\n    payload:{\n        chatId: env.get('CHAT_ID'),\n        type:\"message\",\n        content: msg.payload.value\n    }\n}\n\nreturn telegramMessage;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "2a84092a82eaac65"
             ]
         ]
     }
