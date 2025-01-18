@@ -2,9 +2,11 @@ import paho.mqtt.client as mqtt
 from knowledge.database import Database
 import json
 import re
+import os
 
 MANAGED_RESOURCES_JSON_FILE_PATH = "/app/sensors-config/managed-resources.json"
-
+MQTT_PORT = int(os.environ.get('MQTT_BROKER_PORT', 1883))
+MQTT_URL = os.environ.get('MQTT_SERVICE_NAME', 'localhost')
 
 def get_managed_resources_list():
     with open(MANAGED_RESOURCES_JSON_FILE_PATH, 'r') as file:
@@ -89,5 +91,5 @@ if __name__ == '__main__':
     client_mqtt.on_connect = on_connect
     client_mqtt.on_message = on_message
     client_mqtt.on_subscribe = on_subscribe
-    client_mqtt.connect("mqtt_broker", 1883)
+    client_mqtt.connect(MQTT_URL, MQTT_PORT)
     client_mqtt.loop_forever()

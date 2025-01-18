@@ -66,6 +66,8 @@ services:
       - INFLUX_BUCKET=AFLORA
       - INFLUX_LINK=http://influxdb:8086
       - INFLUX_ORG=AFLORA
+      - MQTT_SERVICE_NAME=mqtt_broker
+      - MQTT_BROKER_PORT=1883
     networks:
       - aflora_network
     depends_on:
