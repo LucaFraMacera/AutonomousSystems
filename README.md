@@ -1,4 +1,4 @@
-# FLORA: Farming Life-cycle Observation with Real-time Analytics
+# AFLORA: Autonomous Farming Life-cycle Observation with Real-time Analytics
 
 ## Introduction
 Our project monitors data related to the greenhouse environment and plant health, including parameters such as temperature, humidity, and CO2 levels, as well as plant-specific metrics like soil moisture.
