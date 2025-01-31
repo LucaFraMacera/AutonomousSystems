@@ -5271,3 +5271,32 @@
 1738325160: Client auto-10BDCD3C-5EE8-2624-B7A8-47C76C0E9EA6 closed its connection.
 1738325160: Client auto-1E7FE646-A98A-4A41-6F73-B89EAC224A77 closed its connection.
 1738325160: Client Publisher closed its connection.
+1738325170: mosquitto version 2.0.20 starting
+1738325170: Config loaded from /mosquitto/config/mosquitto.conf.
+1738325170: Opening ipv4 listen socket on port 1883.
+1738325170: Opening ipv6 listen socket on port 1883.
+1738325170: mosquitto version 2.0.20 running
+1738325170: New connection from 172.21.0.3:36495 on port 1883.
+1738325170: New client connected from 172.21.0.3:36495 as auto-D406AE8A-1247-FB4C-2E49-613BCE8F0FA1 (p2, c1, k60).
+1738325171: New connection from 172.21.0.7:46007 on port 1883.
+1738325171: New client connected from 172.21.0.7:46007 as auto-B503CCA2-1418-3FB0-01BA-834C955E9E66 (p2, c1, k60).
+1738325171: New connection from 172.21.0.6:32983 on port 1883.
+1738325171: New client connected from 172.21.0.6:32983 as auto-E36C37A3-6F07-29A5-8BFA-D22C2E7C083A (p2, c1, k60).
+1738325172: New connection from 172.21.0.1:36566 on port 1883.
+1738325172: New client connected from 172.21.0.1:36566 as nodered_43b75c9a4d27c6e3 (p2, c1, k60).
+1738325172: New connection from 172.21.0.11:46761 on port 1883.
+1738325172: New client connected from 172.21.0.11:46761 as auto-D2803E10-4015-45AB-8BF0-315281FDED25 (p2, c1, k60).
+1738325172: New connection from 172.21.0.14:57373 on port 1883.
+1738325172: New client connected from 172.21.0.14:57373 as auto-8A194E15-7C44-B70B-3612-9644B85FDAE3 (p2, c1, k60).
+1738325172: New connection from 172.21.0.15:57381 on port 1883.
+1738325172: New client connected from 172.21.0.15:57381 as Publisher (p2, c1, k60).
+1738325172: New connection from 172.21.0.8:34839 on port 1883.
+1738325172: New client connected from 172.21.0.8:34839 as auto-D7174E45-1B45-31DB-5982-52FD6FACD5A4 (p2, c1, k60).
+1738325173: New connection from 172.21.0.13:34139 on port 1883.
+1738325173: New client connected from 172.21.0.13:34139 as auto-28EA34A2-48A9-5428-E47C-87377F570B31 (p2, c1, k60).
+1738325173: New connection from 172.21.0.10:55639 on port 1883.
+1738325173: New client connected from 172.21.0.10:55639 as auto-1359286C-8B33-95EE-C943-FD1DFD2673A0 (p2, c1, k60).
+1738325173: New connection from 172.21.0.16:56971 on port 1883.
+1738325173: New client connected from 172.21.0.16:56971 as auto-989E4512-4B27-24C1-7C73-22FF9E7D28D8 (p2, c1, k60).
+1738325173: New connection from 172.21.0.9:49051 on port 1883.
+1738325173: New client connected from 172.21.0.9:49051 as auto-7DD68747-F12D-4072-A506-838828422C29 (p2, c1, k60).

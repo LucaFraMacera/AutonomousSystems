@@ -51,7 +51,6 @@ def checkGreenhousePlan(greenhouse_id):
     last_plan = PlantPlanner.readLastPlan({"greenhouse_id":greenhouse_id})
     high_priority_plans = PlantPlanner.get_high_priority_plans()
     if last_plan is not None and last_plan["value"] in high_priority_plans:
-        print(f"Greenhouse {greenhouse_id} is on fire", flush=True)
         return False
     return True
 
