@@ -117,7 +117,7 @@ class GreenhouseAnalyzer(Analyzer):
                 sensors_single_readings[sensor] = readings[0]
         return sensors_single_readings
     def _check_status(self):
-        results = self._database.databaseRead({"start_time": "-24h", "sensor_type": ["co2", "fine_dust", "humidity", "smoke", "temperature"]})
+        results = self._database.databaseRead({"measurement":"sensor-values", "start_time": "-24h", "sensor_type": ["co2", "fine_dust", "humidity", "smoke", "temperature"]})
 
         greenhouse_readings = {}
         for result in results:

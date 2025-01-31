@@ -1,11 +1,10 @@
 import influxdb_client
-from influxdb_client.client.write_api import SYNCHRONOUS
+from influxdb_client.client.write_api import SYNCHRONOUS, ASYNCHRONOUS
 import os
 import functools
 
 
 class Database:
-    MEASUREMENT = "sensor-values"
 
     def __init__(self):
         self._bucket = os.environ.get("INFLUX_BUCKET", "")
@@ -15,7 +14,6 @@ class Database:
         self._client = influxdb_client.InfluxDBClient(url=self._url, token=self._token)
 
     def databaseWrite(self, point):
-        point["measurement"] = self.MEASUREMENT
         write_api = self._client.write_api(write_options=SYNCHRONOUS)
         try:
             write_api.write(bucket=self._bucket, org=self._org, record=[point])
@@ -25,14 +23,16 @@ class Database:
 
     def databaseRead(self, tags):
         query_api = self._client.query_api()
+        if ("measurement" not in tags.keys()):
+            raise Exception("Read measurement not specified!")
         # Building query
         query = f'from(bucket:"{self._bucket}")'
         start_time = "start:" + (tags["start_time"] if "start_time" in tags.keys() else "-2m")
         end_time = ', stop:' + tags["end_time"] if "end_time" in tags.keys() else ""
         query += f'|>range({start_time}{end_time})'
-        query += f'|>filter(fn:(r)=>r["_measurement"]=="{self.MEASUREMENT}")'
+        query += f'|>filter(fn:(r)=>r["_measurement"]=="{tags["measurement"]}")'
         for tag, value in tags.items():
-            if tag != "start_time" and tag != "end_time":
+            if tag != "start_time" and tag != "end_time" and tag != "measurement":
                 if tag == "sensor_type" and len(value) > 0:
                     query += f'|>filter(fn:(r)=>{self.createSensorTypeFilterQuery(value)})'
                 else:
@@ -50,11 +50,12 @@ class Database:
     def createSensorData(self, record):
         current_sensor_reading = {
             "greenhouse_id": record["greenhouse_id"],
-            "sensor_type": record["sensor_type"],
             "value": record.get_value()
         }
         if "plant_id" in record.values:
             current_sensor_reading["plant_id"] = record["plant_id"]
+        if "sensor_type" in record.values:
+            current_sensor_reading["sensor_type"] = record["sensor_type"]
         return current_sensor_reading
     
     def createSensorTypeFilterQuery(self, sensor_types):

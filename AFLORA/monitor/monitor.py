@@ -7,6 +7,8 @@ import os
 MANAGED_RESOURCES_JSON_FILE_PATH = "/app/sensors-config/managed-resources.json"
 MQTT_PORT = int(os.environ.get('MQTT_BROKER_PORT', 1883))
 MQTT_URL = os.environ.get('MQTT_SERVICE_NAME', 'localhost')
+SENSOR_MEASUREMENT = "sensor-values"
+
 
 def get_managed_resources_list():
     with open(MANAGED_RESOURCES_JSON_FILE_PATH, 'r') as file:
@@ -43,6 +45,7 @@ def parseBrokerMessage(message):
     if "status" in tags or "plan" in tags or check_if_is_managed_resource_topic(tags):
         return None
     point = {}
+    point["measurement"] = SENSOR_MEASUREMENT
     if (len(tags) == 3):
         point["tags"] = {
             "greenhouse_id": getIdFromTopicTag(tags[0]),

@@ -2,14 +2,20 @@ x-planner-service: &planner-service
   environment:
     - MQTT_SERVICE_NAME=mqtt_broker
     - MQTT_BROKER_PORT=1883
+    - INFLUX_TOKEN=se4iot_token
+    - INFLUX_BUCKET=AFLORA
+    - INFLUX_LINK=http://influxdb:8086
+    - INFLUX_ORG=AFLORA
   volumes:
     - ./planner/planner.py:/planner.py
     - ./planner/requirements.txt:/requirements.txt
     - ./sensors-config:/sensors-config
+    - ./knowledge:/knowledge
   networks:
     - aflora_network
   depends_on:
     - mqtt_broker
+    - influxdb
 
 x-analyzer-service: &analyzer-service
   environment:

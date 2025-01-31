@@ -38,4 +38,5 @@ def on_message(client, userdata, msg):
     published_status = json.loads(msg.payload.decode('UTF-8'))["value"].upper()
     if published_status in plans.keys():
         topic = GreenhousePlanner.TOPIC.format(greenhouse=matched_groups[0])
+        GreenhousePlanner.writePlan(plans[published_status], {"greenhouse_id":GreenhousePlanner.getIdFromTopicTag(matched_groups[0])})
         GreenhousePlanner.publish(client, topic, plans[published_status])

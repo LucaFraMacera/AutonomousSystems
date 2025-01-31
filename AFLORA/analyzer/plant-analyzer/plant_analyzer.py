@@ -45,7 +45,7 @@ class PlantAnalyzer(Analyzer):
         self._publish_value_on_topic(plant_status.lower(), plant_status_topic)
 
     def _check_status(self):
-        results = self._database.databaseRead({"start_time": "-24h", "sensor_type": ["soil_moisture"]})
+        results = self._database.databaseRead({"measurement":"sensor-values","start_time": "-24h", "sensor_type": ["soil_moisture"]})
         plants_readings = {}
         for result in results:
             greenhouse_id = result["greenhouse_id"]
